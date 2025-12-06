@@ -271,94 +271,189 @@ function mostrarPantalla(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-async function mostrarLogin() {
-  mostrarPantalla('pantallaLogin');
-  document.getElementById('mensajeLogin').innerHTML = '';
+// Función para mostrar el contenido del formulario (ocultar bienvenida)
+function mostrarContenidoFormulario() {
+  const pantallaBienvenida = document.getElementById('pantallaBienvenida');
+  const contenidoFormulario = document.getElementById('contenidoFormulario');
+  const body = document.body;
   
-  // PRECARGAR DATOS DEL FORMULARIO
-  if (datosCache.tutoresNorte.length === 0) {
-    const mensajeLogin = document.getElementById('mensajeLogin');
-    mensajeLogin.innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; font-size: 13px; margin-top: 10px;">Cargando datos del formulario...</p>';
+  // Actualizar estado de navegación
+  pantallaActual = 'contenidoFormulario';
+  
+  // Remover clase welcome-active del body
+  body.classList.remove('welcome-active');
+  
+  // Ocultar pantalla de bienvenida con animación
+  pantallaBienvenida.style.opacity = '0';
+  pantallaBienvenida.style.transition = 'opacity 0.5s ease';
+  
+  setTimeout(() => {
+    pantallaBienvenida.style.display = 'none';
+    contenidoFormulario.classList.remove('hidden');
+    contenidoFormulario.style.opacity = '0';
+    contenidoFormulario.style.transition = 'opacity 0.5s ease';
     
-    try {
-      await precargarDatosFormulario();
-      mensajeLogin.innerHTML = '';
-    } catch (error) {
-      mensajeLogin.innerHTML = '';
-      console.error('Error precargando datos:', error);
+    // Mostrar formulario con animación
+    setTimeout(() => {
+      contenidoFormulario.style.opacity = '1';
+      // Scroll suave al inicio del formulario
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  }, 500);
+}
+
+async function mostrarLogin() {
+  mostrarContenidoFormulario();
+  setTimeout(() => {
+    mostrarPantalla('pantallaLogin');
+    document.getElementById('mensajeLogin').innerHTML = '';
+    
+    // PRECARGAR DATOS DEL FORMULARIO
+    if (datosCache.tutoresNorte.length === 0) {
+      const mensajeLogin = document.getElementById('mensajeLogin');
+      mensajeLogin.innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; font-size: 13px; margin-top: 10px;">Cargando datos del formulario...</p>';
+      
+      precargarDatosFormulario().then(() => {
+        mensajeLogin.innerHTML = '';
+      }).catch(error => {
+        mensajeLogin.innerHTML = '';
+        console.error('Error precargando datos:', error);
+      });
     }
-  }
+  }, 550);
 }
 
 
 async function mostrarRegistro() {
-  mostrarPantalla('pantallaRegistro');
-  document.getElementById('mensajeRegistro').innerHTML = '';
-  document.getElementById('confirmacionDatos').classList.add('hidden');
-  document.getElementById('btnConfirmarRegistro').classList.add('hidden');
-  
-  // Mostrar paso de verificación de documento
-  document.getElementById('pasoDocumento').classList.remove('hidden');
-  document.getElementById('formRegistro').classList.add('hidden');
-  document.getElementById('regDocumento').value = '';
-  
-  // CARGAR DATOS DEL REGISTRO
-  if (datosCache.facultadesCarreras.length === 0) {
-    mostrarCargando('mensajeRegistro');
-    try {
-      await precargarDatosRegistro();
-      document.getElementById('mensajeRegistro').innerHTML = '';
+  mostrarContenidoFormulario();
+  setTimeout(() => {
+    mostrarPantalla('pantallaRegistro');
+    document.getElementById('mensajeRegistro').innerHTML = '';
+    document.getElementById('confirmacionDatos').classList.add('hidden');
+    document.getElementById('btnConfirmarRegistro').classList.add('hidden');
+    
+    // Mostrar paso de verificación de documento
+    document.getElementById('pasoDocumento').classList.remove('hidden');
+    document.getElementById('formRegistro').classList.add('hidden');
+    document.getElementById('regDocumento').value = '';
+    
+    // CARGAR DATOS DEL REGISTRO
+    if (datosCache.facultadesCarreras.length === 0) {
+      mostrarCargando('mensajeRegistro');
+      precargarDatosRegistro().then(() => {
+        document.getElementById('mensajeRegistro').innerHTML = '';
+        cargarFacultades();
+      }).catch(error => {
+        mostrarMensaje('mensajeRegistro', 'Error al cargar los datos. Por favor intenta de nuevo.', 'error');
+      });
+    } else {
       cargarFacultades();
-    } catch (error) {
-      mostrarMensaje('mensajeRegistro', 'Error al cargar los datos. Por favor intenta de nuevo.', 'error');
     }
-  } else {
-    cargarFacultades();
-  }
+  }, 550);
 }
 
 
 function mostrarLoginAdmin() {
-  mostrarPantalla('pantallaAdminLogin');
-  document.getElementById('mensajeAdminLogin').innerHTML = '';
+  mostrarContenidoFormulario();
+  setTimeout(() => {
+    mostrarPantalla('pantallaAdminLogin');
+    document.getElementById('mensajeAdminLogin').innerHTML = '';
+  }, 550);
 }
 
-function toggleHorarios() {
-  const contenedor = document.getElementById('contenedorHorarios');
-  contenedor.classList.toggle('hidden');
-  
-  if (contenedor.classList.contains('hidden')) {
-    document.getElementById('horarioNorte').classList.add('hidden');
-    document.getElementById('horarioSur').classList.add('hidden');
-    document.getElementById('horarioVirtual').classList.add('hidden');
-  }
+function mostrarModalHorarios() {
+  const modal = document.getElementById('modalHorarios');
+  modal.classList.remove('hidden');
+  // Prevenir scroll del body cuando el modal está abierto
+  document.body.style.overflow = 'hidden';
 }
 
-function toggleHorario(sede) {
-  document.getElementById('horarioNorte').classList.add('hidden');
-  document.getElementById('horarioSur').classList.add('hidden');
-  document.getElementById('horarioVirtual').classList.add('hidden');
+function cerrarModalHorarios() {
+  const modal = document.getElementById('modalHorarios');
+  modal.classList.add('hidden');
+  // Restaurar scroll del body
+  document.body.style.overflow = '';
+  // Ocultar todos los horarios al cerrar
+  document.getElementById('horarioNorteModal').classList.add('hidden');
+  document.getElementById('horarioSurModal').classList.add('hidden');
+  document.getElementById('horarioVirtualModal').classList.add('hidden');
+}
+
+function mostrarHorarioEnModal(sede) {
+  // Ocultar todos los horarios primero
+  document.getElementById('horarioNorteModal').classList.add('hidden');
+  document.getElementById('horarioSurModal').classList.add('hidden');
+  document.getElementById('horarioVirtualModal').classList.add('hidden');
   
+  // Mostrar el horario seleccionado
   if (sede === 'norte') {
-    document.getElementById('horarioNorte').classList.toggle('hidden');
+    document.getElementById('horarioNorteModal').classList.remove('hidden');
   } else if (sede === 'sur') {
-    document.getElementById('horarioSur').classList.toggle('hidden');
+    document.getElementById('horarioSurModal').classList.remove('hidden');
   } else if (sede === 'virtual') {
-    document.getElementById('horarioVirtual').classList.toggle('hidden');
+    document.getElementById('horarioVirtualModal').classList.remove('hidden');
   }
 }
+
+// Cerrar modal al hacer clic fuera de él
+document.addEventListener('DOMContentLoaded', function() {
+  const modalHorarios = document.getElementById('modalHorarios');
+  if (modalHorarios) {
+    modalHorarios.addEventListener('click', function(e) {
+      if (e.target === modalHorarios) {
+        cerrarModalHorarios();
+      }
+    });
+    
+    // Cerrar modal con tecla ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && !modalHorarios.classList.contains('hidden')) {
+        cerrarModalHorarios();
+      }
+    });
+  }
+});
 
 function volverInicio() {
-  mostrarPantalla('pantallaInicio');
+  const pantallaBienvenida = document.getElementById('pantallaBienvenida');
+  const contenidoFormulario = document.getElementById('contenidoFormulario');
+  const body = document.body;
+  
+  // Actualizar estado de navegación
+  pantallaActual = 'pantallaBienvenida';
+  
   limpiarFormularios();
   formularioEnviandose = false;
-  document.getElementById('btnContinuar').classList.remove('hidden');
-  document.getElementById('btnConfirmarRegistro').classList.add('hidden');
-  document.getElementById('confirmacionDatos').classList.add('hidden');
-  document.getElementById('contenedorHorarios').classList.add('hidden');
-  document.getElementById('horarioNorte').classList.add('hidden');
-  document.getElementById('horarioSur').classList.add('hidden');
-  document.getElementById('horarioVirtual').classList.add('hidden');
+  const btnContinuar = document.getElementById('btnContinuar');
+  const btnConfirmarRegistro = document.getElementById('btnConfirmarRegistro');
+  const confirmacionDatos = document.getElementById('confirmacionDatos');
+  
+  if (btnContinuar) btnContinuar.classList.remove('hidden');
+  if (btnConfirmarRegistro) btnConfirmarRegistro.classList.add('hidden');
+  if (confirmacionDatos) confirmacionDatos.classList.add('hidden');
+  
+  // Cerrar modal de horarios si está abierto
+  const modalHorarios = document.getElementById('modalHorarios');
+  if (modalHorarios && !modalHorarios.classList.contains('hidden')) {
+    cerrarModalHorarios();
+  }
+  
+  // Ocultar contenido del formulario y mostrar bienvenida
+  contenidoFormulario.style.opacity = '0';
+  contenidoFormulario.style.transition = 'opacity 0.5s ease';
+  
+  setTimeout(() => {
+    contenidoFormulario.classList.add('hidden');
+    body.classList.add('welcome-active');
+    pantallaBienvenida.style.display = 'flex';
+    pantallaBienvenida.style.opacity = '0';
+    pantallaBienvenida.style.transition = 'opacity 0.5s ease';
+    
+    setTimeout(() => {
+      pantallaBienvenida.style.opacity = '1';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 50);
+  }, 500);
 
 
 // REACTIVAR BOTONES
@@ -395,6 +490,35 @@ function mostrarMensaje(elementId, mensaje, tipo) {
   }, 100);
   
   setTimeout(() => elemento.innerHTML = '', 10000);
+}
+
+// Función para hacer scroll a un elemento de error
+function scrollToError(elemento) {
+  if (elemento) {
+    elemento.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
+    });
+    // Resaltar el campo con un pequeño delay
+    setTimeout(() => {
+      // Solo hacer focus si es un elemento input, select o textarea
+      if (elemento.tagName === 'INPUT' || elemento.tagName === 'SELECT' || elemento.tagName === 'TEXTAREA') {
+        elemento.focus();
+        elemento.style.transition = 'box-shadow 0.3s ease';
+        elemento.style.boxShadow = '0 0 0 4px rgba(220, 53, 69, 0.3)';
+        setTimeout(() => {
+          elemento.style.boxShadow = '';
+        }, 2000);
+      } else {
+        // Para otros elementos (como el contenedor de rating), solo resaltar
+        elemento.style.transition = 'box-shadow 0.3s ease';
+        elemento.style.boxShadow = '0 0 0 4px rgba(220, 53, 69, 0.3)';
+        setTimeout(() => {
+          elemento.style.boxShadow = '';
+        }, 2000);
+      }
+    }, 300);
+  }
 }
 
 function mostrarCargando(elementId) {
@@ -1234,28 +1358,73 @@ async function guardarFormulario(event) {
   const ambienteRadio = document.querySelector('input[name="ambiente"]:checked');
   const recomendaPmaRadio = document.querySelector('input[name="recomienda_pma"]:checked');
   
-  // Validar que todas las calificaciones estén respondidas
-  if (!calificacionRadio || !dudasResueltasRadio || !dominioTemaRadio || !ambienteRadio || !recomendaPmaRadio) {
-    let camposFaltantes = [];
-    
-    if (!calificacionRadio) camposFaltantes.push('Calificación de la tutoría');
-    if (!dudasResueltasRadio) camposFaltantes.push('¿Se resolvieron tus dudas?');
-    if (!dominioTemaRadio) camposFaltantes.push('¿El tutor demostró dominio del tema?');
-    if (!ambienteRadio) camposFaltantes.push('¿Ambiente adecuado para concentrarte?');
-    if (!recomendaPmaRadio) camposFaltantes.push('¿Recomendarías el PMA?');
-    
-    mostrarMensaje('mensajeFormulario', 
-      `Por favor responde todas las preguntas de calificación: ${camposFaltantes.join(', ')}`, 
-      'error');
-    
-    // Scroll al mensaje de error
+  // Validar calificación de la tutoría
+  if (!calificacionRadio) {
+    const ratingContainer = document.getElementById('ratingCalificacion');
+    mostrarMensaje('mensajeFormulario', 'Por favor seleccione la calificación de la tutoría', 'error');
     setTimeout(() => {
-      document.getElementById('mensajeFormulario').scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'center' 
-      });
+      scrollToError(ratingContainer);
     }, 100);
-    
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar Formulario';
+    btnEnviar.style.opacity = '1';
+    btnEnviar.style.cursor = 'pointer';
+    return;
+  }
+  
+  // Validar ¿Se resolvieron tus dudas?
+  if (!dudasResueltasRadio) {
+    const ratingContainer = document.getElementById('ratingDudasResueltas');
+    mostrarMensaje('mensajeFormulario', 'Por favor seleccione si se resolvieron sus dudas', 'error');
+    setTimeout(() => {
+      scrollToError(ratingContainer);
+    }, 100);
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar Formulario';
+    btnEnviar.style.opacity = '1';
+    btnEnviar.style.cursor = 'pointer';
+    return;
+  }
+  
+  // Validar ¿El tutor demostró dominio del tema?
+  if (!dominioTemaRadio) {
+    const ratingContainer = document.getElementById('ratingDominioTema');
+    mostrarMensaje('mensajeFormulario', 'Por favor seleccione si el tutor demostró dominio del tema', 'error');
+    setTimeout(() => {
+      scrollToError(ratingContainer);
+    }, 100);
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar Formulario';
+    btnEnviar.style.opacity = '1';
+    btnEnviar.style.cursor = 'pointer';
+    return;
+  }
+  
+  // Validar ¿Ambiente adecuado para concentrarte?
+  if (!ambienteRadio) {
+    const ratingContainer = document.getElementById('ratingAmbiente');
+    mostrarMensaje('mensajeFormulario', 'Por favor seleccione si el ambiente fue adecuado para concentrarse', 'error');
+    setTimeout(() => {
+      scrollToError(ratingContainer);
+    }, 100);
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar Formulario';
+    btnEnviar.style.opacity = '1';
+    btnEnviar.style.cursor = 'pointer';
+    return;
+  }
+  
+  // Validar ¿Recomendarías el PMA?
+  if (!recomendaPmaRadio) {
+    const ratingContainer = document.getElementById('ratingRecomiendaPma');
+    mostrarMensaje('mensajeFormulario', 'Por favor seleccione si recomendaría el PMA', 'error');
+    setTimeout(() => {
+      scrollToError(ratingContainer);
+    }, 100);
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar Formulario';
+    btnEnviar.style.opacity = '1';
+    btnEnviar.style.cursor = 'pointer';
     return;
   }
   
@@ -3428,8 +3597,8 @@ function actualizarGrafica() {
 // ===================================
 
 // Variable para rastrear la pantalla actual
-let pantallaActual = 'pantallaInicio';
-let historialNavegacion = ['pantallaInicio'];
+let pantallaActual = 'pantallaBienvenida';
+let historialNavegacion = ['pantallaBienvenida'];
 
 // Actualizar el historial cuando cambia la pantalla
 function actualizarHistorialNavegacion(nuevaPantalla) {
@@ -3457,7 +3626,7 @@ window.addEventListener('popstate', function(event) {
   
   // Si no hay estado, estamos en la página inicial
   if (!event.state) {
-    if (pantallaActual !== 'pantallaInicio') {
+    if (pantallaActual !== 'pantallaBienvenida') {
       manejarRetroceso();
     }
     return;
@@ -3513,12 +3682,12 @@ function manejarRetroceso() {
 window.addEventListener('load', function() {
   // Establecer el estado inicial
   const estadoInicial = {
-    pantalla: 'pantallaInicio',
+    pantalla: 'pantallaBienvenida',
     timestamp: Date.now()
   };
   
   window.history.replaceState(estadoInicial, '', window.location.href);
-  pantallaActual = 'pantallaInicio';
+  pantallaActual = 'pantallaBienvenida';
 });
 
 // Prevenir que el navegador restaure el scroll al usar el botón de retroceso
@@ -3642,4 +3811,11 @@ document.addEventListener('DOMContentLoaded', function() {
       label.innerHTML = label.innerHTML.replace(/\*/g, '<span style="color: #dc3545; font-weight: bold; font-size: 16px;">*</span>');
     }
   });
+  
+  // Inicializar pantalla de bienvenida
+  const pantallaBienvenida = document.getElementById('pantallaBienvenida');
+  if (pantallaBienvenida && pantallaBienvenida.style.display !== 'none') {
+    document.body.classList.add('welcome-active');
+  }
+  
 });
