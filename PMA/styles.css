@@ -66,8 +66,8 @@
 
 .logo-image {
   width: auto;
-  height: 120px;
-  max-width: 350px;
+  height: 160px;
+  max-width: 400px;
   object-fit: contain;
   display: block;
 }
@@ -76,9 +76,11 @@
   position: relative;
   z-index: 1;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
   width: 100%;
+  margin-top: auto;
 }
 
 .welcome-footer-info-left {
@@ -95,9 +97,9 @@
 }
 
 .welcome-footer-logo {
-  height: 140px;
+  height: 100px;
   width: auto;
-  max-width: 280px;
+  max-width: 200px;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
@@ -107,7 +109,7 @@
   font-size: 13px;
   font-weight: 500;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
   white-space: nowrap;
 }
 
@@ -117,7 +119,7 @@
   font-weight: 600;
   text-decoration: none;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
   transition: color 0.3s ease;
   margin-bottom: 12px;
   display: block;
@@ -134,7 +136,7 @@
   font-weight: 400;
   margin: 0;
   margin-top: 8px;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
 }
 
 .welcome-right {
@@ -190,7 +192,7 @@
   transition: all 0.3s ease;
   margin-top: 10px;
   letter-spacing: 0.3px;
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
 }
 
 .welcome-btn-primary {
@@ -231,6 +233,7 @@
   z-index: 1;
   width: 100%;
   overflow-x: hidden;
+  margin-top: 20px;
 }
 
 /* ===================================
@@ -270,8 +273,8 @@
   }
   
   .logo-image {
-    height: 100px;
-    max-width: 280px;
+    height: 140px;
+    max-width: 350px;
   }
   
   .welcome-title-main {
@@ -283,8 +286,8 @@
   }
   
   .welcome-footer-logo {
-    height: 120px;
-    max-width: 240px;
+    height: 90px;
+    max-width: 180px;
   }
   
   .welcome-footer-text {
@@ -307,7 +310,7 @@
   }
   
   .modal-horarios-header {
-    padding: 20px 25px;
+    padding: 12px 18px;
   }
   
   .modal-horarios-header h2 {
@@ -315,7 +318,7 @@
   }
   
   .modal-horarios-content {
-    padding: 25px;
+    padding: 18px;
   }
 }
 
@@ -335,8 +338,8 @@
   }
   
   .logo-image {
-    height: 90px;
-    max-width: 250px;
+    height: 120px;
+    max-width: 300px;
   }
   
   .welcome-title-main {
@@ -350,8 +353,8 @@
   }
   
   .welcome-footer-logo {
-    height: 100px;
-    max-width: 200px;
+    height: 80px;
+    max-width: 160px;
   }
   
   .welcome-footer-text {
@@ -374,7 +377,7 @@
   }
   
   .modal-horarios-header {
-    padding: 18px 20px;
+    padding: 12px 16px;
   }
   
   .modal-horarios-header h2 {
@@ -382,7 +385,7 @@
   }
   
   .modal-horarios-content {
-    padding: 20px;
+    padding: 16px;
   }
   
   .modal-close-btn {
@@ -416,8 +419,8 @@
   }
   
   .logo-image {
-    height: 80px;
-    max-width: 220px;
+    height: 100px;
+    max-width: 250px;
   }
   
   .welcome-title-main {
@@ -432,19 +435,26 @@
   }
   
   .welcome-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
   }
   
   .welcome-footer-logo-right {
-    width: 100%;
+    width: auto;
     justify-content: flex-end;
+    flex-shrink: 0;
+  }
+  
+  .welcome-footer-info-left {
+    flex-shrink: 1;
+    min-width: 0;
   }
   
   .welcome-footer-logo {
-    height: 80px;
-    max-width: 160px;
+    height: 60px;
+    max-width: 120px;
   }
   
   .logo-footer-pma {
@@ -496,7 +506,7 @@
   }
   
   .modal-horarios-header {
-    padding: 15px 18px;
+    padding: 12px 15px;
   }
   
   .modal-horarios-header h2 {
@@ -504,7 +514,7 @@
   }
   
   .modal-horarios-content {
-    padding: 18px;
+    padding: 15px;
   }
   
   .modal-close-btn {
@@ -558,7 +568,7 @@
 }
 
 body {
-  font-family: 'Poppins', 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -646,7 +656,7 @@ body.welcome-active {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
   max-width: 700px;
   width: 100%;
-  margin: 0 auto;
+  margin: 40px auto 0 auto;
   padding: 30px 25px;
   animation: fadeIn 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -944,9 +954,9 @@ input[type="text"][id="adminDocumento"] {
   transition: none !important;
 }
 
-.uppercase-input {
-  text-transform: uppercase;
-}
+/* .uppercase-input - Clase mantenida para referencia, pero sin estilos CSS.
+   Los campos con esta clase se convierten a mayúsculas en JavaScript antes de enviar a la base de datos.
+   Esto permite que el usuario escriba en minúsculas mientras escribe, pero los datos se guardan en mayúsculas. */
 
 input:focus,
 select:focus,
@@ -1550,7 +1560,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 25px 30px;
+  padding: 15px 20px;
   border-bottom: 2px solid #e0e0e0;
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
@@ -1561,7 +1571,7 @@ textarea {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
 }
 
 .modal-close-btn {
@@ -1585,7 +1595,7 @@ textarea {
 }
 
 .modal-horarios-content {
-  padding: 30px;
+  padding: 20px;
   overflow-y: auto;
   flex: 1;
 }
@@ -1610,8 +1620,8 @@ textarea {
 }
 
 .horario-info-modal {
-  margin-top: 20px;
-  padding: 20px;
+  margin-top: 15px;
+  padding: 15px;
   background: linear-gradient(to bottom, #e8f4fd 0%, #f0f8ff 100%);
   border-radius: 10px;
   border: 2px solid #1e3c72;
@@ -1710,7 +1720,7 @@ textarea {
   color: #ffffff;
   text-align: center;
   padding: 25px 10px;
-  font-family: "Segoe UI", Arial, sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
   background: rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   margin-top: 20px;
@@ -2144,7 +2154,7 @@ input[type="text"][id="adminContrasena"] {
 
   .container {
     padding: 20px 12px;
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
     max-width: 95%;
   }
 
@@ -2492,6 +2502,7 @@ input[type="text"][id="adminContrasena"] {
   }
 }
 
+
 /* ===================================
    ESTILOS PARA MÓVILES
    Media Query: max-width: 480px
@@ -2505,7 +2516,7 @@ input[type="text"][id="adminContrasena"] {
   .container {
     padding: 15px 10px;
     max-width: 98%;
-    margin: 0 auto;
+    margin: 25px auto 0 auto;
   }
 
   .section-title {
