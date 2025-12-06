@@ -233,7 +233,7 @@
   z-index: 1;
   width: 100%;
   overflow-x: hidden;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 /* ===================================
@@ -381,7 +381,7 @@
   }
   
   .modal-horarios-header h2 {
-    font-size: 18px;
+    font-size: 14px;
   }
   
   .modal-horarios-content {
@@ -510,7 +510,7 @@
   }
   
   .modal-horarios-header h2 {
-    font-size: 16px;
+    font-size: 12px;
   }
   
   .modal-horarios-content {
@@ -644,7 +644,8 @@ body::after {
 /* Cuando la pantalla de bienvenida está visible, ajustar el body */
 body.welcome-active {
   padding: 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* ===================================
@@ -656,7 +657,7 @@ body.welcome-active {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
   max-width: 700px;
   width: 100%;
-  margin: 40px auto 0 auto;
+  margin: 80px auto 0 auto;
   padding: 30px 25px;
   animation: fadeIn 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -2154,7 +2155,7 @@ input[type="text"][id="adminContrasena"] {
 
   .container {
     padding: 20px 12px;
-    margin: 30px auto 0 auto;
+    margin: 60px auto 0 auto;
     max-width: 95%;
   }
 
@@ -2516,7 +2517,7 @@ input[type="text"][id="adminContrasena"] {
   .container {
     padding: 15px 10px;
     max-width: 98%;
-    margin: 25px auto 0 auto;
+    margin: 50px auto 0 auto;
   }
 
   .section-title {
