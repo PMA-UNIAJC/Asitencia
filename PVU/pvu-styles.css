@@ -413,29 +413,8 @@ body::before {
     -300px calc(100% + 300px),
     calc(100% + 300px) calc(100% + 300px);
   background-attachment: fixed;
-  animation: backgroundShift 25s ease-in-out infinite alternate;
 }
 
-@keyframes backgroundShift {
-  0% {
-    background-position: 
-      0 0,
-      0 0,
-      -400px -400px,
-      calc(100% + 200px) -300px,
-      -300px calc(100% + 300px),
-      calc(100% + 300px) calc(100% + 300px);
-  }
-  100% {
-    background-position: 
-      25px 25px,
-      20px 20px,
-      -100px -100px,
-      calc(100% + 500px) calc(100% + 200px),
-      calc(100% + 200px) calc(100% + 600px),
-      calc(100% + 600px) calc(100% + 500px);
-  }
-}
 
 /* Capa adicional con efecto de brillo animado sutil y más difuso */
 body::after {
@@ -451,24 +430,9 @@ body::after {
     radial-gradient(circle 900px at 70% 80%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 80%),
     radial-gradient(circle 800px at 50% 50%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 80%);
   pointer-events: none;
-  animation: glowMove 15s ease-in-out infinite alternate;
   opacity: 0.6;
 }
 
-@keyframes glowMove {
-  0% {
-    transform: scale(1) translate(0, 0);
-    opacity: 0.5;
-  }
-  50% {
-    transform: scale(1.05) translate(40px, 40px);
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1.08) translate(80px, 80px);
-    opacity: 0.6;
-  }
-}
 
 /* Contenedor principal con padding para el scroll */
 body {
@@ -1045,17 +1009,20 @@ textarea {
   }
 
   .email-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
+    gap: 6px;
   }
 
   .email-separator {
-    display: none;
+    font-size: 16px;
+  }
+
+  .email-input,
+  .email-domain {
+    font-size: 13px !important;
   }
 
   .email-domain {
-    min-width: 100%;
+    min-width: 120px;
   }
 
   .rating {
@@ -1090,6 +1057,23 @@ textarea {
   
   .form-group {
     margin-bottom: 22px;
+  }
+
+  .email-container {
+    gap: 6px;
+  }
+
+  .email-separator {
+    font-size: 15px;
+  }
+
+  .email-input,
+  .email-domain {
+    font-size: 13px !important;
+  }
+
+  .email-domain {
+    min-width: 110px;
   }
 }
 
@@ -1159,11 +1143,30 @@ textarea {
   }
   
   .email-container {
-    gap: 8px;
+    gap: 5px;
+  }
+
+  .email-separator {
+    font-size: 14px;
+  }
+
+  .email-input,
+  .email-domain {
+    font-size: 12px !important;
+    padding: 8px 10px;
+  }
+
+  .email-domain {
+    min-width: 100px;
   }
   
   .otro-dominio-container {
     margin-top: 8px;
+  }
+
+  .otro-dominio-container input {
+    font-size: 12px !important;
+    padding: 8px 10px;
   }
 
   .modal-success {
@@ -1247,6 +1250,29 @@ textarea {
     height: 38px;
     font-size: 12px;
   }
+
+  .email-container {
+    gap: 4px;
+  }
+
+  .email-separator {
+    font-size: 13px;
+  }
+
+  .email-input,
+  .email-domain {
+    font-size: 11px !important;
+    padding: 7px 8px;
+  }
+
+  .email-domain {
+    min-width: 90px;
+  }
+
+  .otro-dominio-container input {
+    font-size: 11px !important;
+    padding: 7px 8px;
+  }
 }
 
 /* Mejoras de accesibilidad y usabilidad táctil */
@@ -1285,3 +1311,4 @@ textarea {
     min-height: 44px;
   }
 }
+
