@@ -24,6 +24,224 @@ const datosCache = {
 
 let facultadesData = {};
 
+// ===================================
+// CACHÉ DE REFERENCIAS DOM
+// ===================================
+// Cache de elementos DOM más frecuentemente accedidos para mejorar rendimiento
+const elementosDOM = {
+  // Mensajes
+  mensajeLogin: null,
+  mensajeRegistro: null,
+  mensajeFormulario: null,
+  mensajeAdminLogin: null,
+  mensajeActualizacion: null,
+  // Pantallas
+  pantallaBienvenida: null,
+  contenidoFormulario: null,
+  pantallaLogin: null,
+  pantallaRegistro: null,
+  pantallaAdmin: null,
+  // Formularios
+  formRegistro: null,
+  formLogin: null,
+  formTutoria: null,
+  formAdminLogin: null,
+  formVerificarDocumento: null,
+  // Confirmación y botones
+  confirmacionDatos: null,
+  datosConfirmacion: null,
+  btnConfirmarRegistro: null,
+  btnContinuar: null,
+  btnEnviar: null,
+  // Modales
+  modalHorarios: null,
+  horarioNorteModal: null,
+  horarioSurModal: null,
+  horarioVirtualModal: null,
+  // Estadísticas
+  statsGrid: null,
+  detallesStats: null,
+  contenidoEstadisticas: null,
+  // Búsqueda
+  resultadoBusqueda: null,
+  // Inputs del formulario de registro (más usados)
+  regDocumento: null,
+  regPrimerNombre: null,
+  regSegundoNombre: null,
+  regPrimerApellido: null,
+  regSegundoApellido: null,
+  regFacultad: null,
+  regPrograma: null,
+  regSede: null,
+  regSemestre: null,
+  regGrupo: null,
+  regDocumentoMostrar: null,
+  // Inputs del formulario de login
+  loginDocumento: null,
+  // Inputs del formulario de tutoría
+  sedeTutoria: null,
+  tipoInstructor: null,
+  facultadDepartamento: null,
+  instructor: null,
+  asignatura: null,
+  // Otros
+  pasoDocumento: null,
+  grupoFacultad: null,
+  grupoInstructor: null,
+  grupoMateria: null,
+  otraAsignaturaContainer: null,
+  labelInstructor: null,
+  nombreUsuario: null,
+  nombreAdmin: null,
+  iconActualizar: null
+};
+
+/**
+ * Inicializa el caché de elementos DOM
+ * Debe llamarse cuando el DOM esté completamente cargado
+ */
+function inicializarCacheDOM() {
+  // Mensajes
+  elementosDOM.mensajeLogin = document.getElementById('mensajeLogin');
+  elementosDOM.mensajeRegistro = document.getElementById('mensajeRegistro');
+  elementosDOM.mensajeFormulario = document.getElementById('mensajeFormulario');
+  elementosDOM.mensajeAdminLogin = document.getElementById('mensajeAdminLogin');
+  elementosDOM.mensajeActualizacion = document.getElementById('mensajeActualizacion');
+  
+  // Pantallas
+  elementosDOM.pantallaBienvenida = document.getElementById('pantallaBienvenida');
+  elementosDOM.contenidoFormulario = document.getElementById('contenidoFormulario');
+  elementosDOM.pantallaLogin = document.getElementById('pantallaLogin');
+  elementosDOM.pantallaRegistro = document.getElementById('pantallaRegistro');
+  elementosDOM.pantallaAdmin = document.getElementById('pantallaAdmin');
+  
+  // Formularios
+  elementosDOM.formRegistro = document.getElementById('formRegistro');
+  elementosDOM.formLogin = document.getElementById('formLogin');
+  elementosDOM.formTutoria = document.getElementById('formTutoria');
+  elementosDOM.formAdminLogin = document.getElementById('formAdminLogin');
+  elementosDOM.formVerificarDocumento = document.getElementById('formVerificarDocumento');
+  
+  // Confirmación y botones
+  elementosDOM.confirmacionDatos = document.getElementById('confirmacionDatos');
+  elementosDOM.datosConfirmacion = document.getElementById('datosConfirmacion');
+  elementosDOM.btnConfirmarRegistro = document.getElementById('btnConfirmarRegistro');
+  elementosDOM.btnContinuar = document.getElementById('btnContinuar');
+  elementosDOM.btnEnviar = document.getElementById('btnEnviar');
+  
+  // Modales
+  elementosDOM.modalHorarios = document.getElementById('modalHorarios');
+  elementosDOM.horarioNorteModal = document.getElementById('horarioNorteModal');
+  elementosDOM.horarioSurModal = document.getElementById('horarioSurModal');
+  elementosDOM.horarioVirtualModal = document.getElementById('horarioVirtualModal');
+  
+  // Estadísticas
+  elementosDOM.statsGrid = document.getElementById('statsGrid');
+  elementosDOM.detallesStats = document.getElementById('detallesStats');
+  elementosDOM.contenidoEstadisticas = document.getElementById('contenidoEstadisticas');
+  
+  // Búsqueda
+  elementosDOM.resultadoBusqueda = document.getElementById('resultadoBusqueda');
+  
+  // Inputs del formulario de registro
+  elementosDOM.regDocumento = document.getElementById('regDocumento');
+  elementosDOM.regPrimerNombre = document.getElementById('regPrimerNombre');
+  elementosDOM.regSegundoNombre = document.getElementById('regSegundoNombre');
+  elementosDOM.regPrimerApellido = document.getElementById('regPrimerApellido');
+  elementosDOM.regSegundoApellido = document.getElementById('regSegundoApellido');
+  elementosDOM.regFacultad = document.getElementById('regFacultad');
+  elementosDOM.regPrograma = document.getElementById('regPrograma');
+  elementosDOM.regSede = document.getElementById('regSede');
+  elementosDOM.regSemestre = document.getElementById('regSemestre');
+  elementosDOM.regGrupo = document.getElementById('regGrupo');
+  elementosDOM.regDocumentoMostrar = document.getElementById('regDocumentoMostrar');
+  
+  // Inputs del formulario de login
+  elementosDOM.loginDocumento = document.getElementById('loginDocumento');
+  
+  // Inputs del formulario de tutoría
+  elementosDOM.sedeTutoria = document.getElementById('sedeTutoria');
+  elementosDOM.tipoInstructor = document.getElementById('tipoInstructor');
+  elementosDOM.facultadDepartamento = document.getElementById('facultadDepartamento');
+  elementosDOM.instructor = document.getElementById('instructor');
+  elementosDOM.asignatura = document.getElementById('asignatura');
+  
+  // Otros
+  elementosDOM.pasoDocumento = document.getElementById('pasoDocumento');
+  elementosDOM.grupoFacultad = document.getElementById('grupoFacultadDepartamento');
+  elementosDOM.grupoInstructor = document.getElementById('grupoInstructor');
+  elementosDOM.grupoMateria = document.getElementById('grupoMateria');
+  elementosDOM.otraAsignaturaContainer = document.getElementById('otraAsignaturaContainer');
+  elementosDOM.labelInstructor = document.getElementById('labelInstructor');
+  elementosDOM.nombreUsuario = document.getElementById('nombreUsuario');
+  elementosDOM.nombreAdmin = document.getElementById('nombreAdmin');
+  elementosDOM.iconActualizar = document.getElementById('iconActualizar');
+}
+
+// ===================================
+// CACHÉ DE CONSULTAS A BASE DE DATOS
+// ===================================
+// Cache global para formularios con TTL de 5 minutos
+const cacheFormularios = {
+  datos: null,
+  timestamp: null,
+  ttl: 5 * 60 * 1000 // 5 minutos en milisegundos
+};
+
+/**
+ * Obtiene los formularios desde caché o desde la BD si el caché expiró
+ * @returns {Promise<Array>} Array de formularios
+ */
+async function obtenerFormulariosCache() {
+  const ahora = Date.now();
+  
+  // Si hay datos en caché y no han expirado, devolverlos
+  if (cacheFormularios.datos && 
+      cacheFormularios.timestamp && 
+      (ahora - cacheFormularios.timestamp) < cacheFormularios.ttl) {
+    console.log('✅ Usando datos del caché de formularios');
+    return cacheFormularios.datos;
+  }
+  
+  // Si no hay caché o expiró, cargar desde la BD
+  console.log('🔄 Cargando formularios desde la BD...');
+  const datos = await supabaseQuery('formularios', { order: 'fecha.asc' });
+  
+  // Actualizar caché
+  cacheFormularios.datos = datos;
+  cacheFormularios.timestamp = ahora;
+  
+  return datos;
+}
+
+/**
+ * Invalida el caché de formularios (útil cuando se actualizan datos)
+ */
+function invalidarCacheFormularios() {
+  cacheFormularios.datos = null;
+  cacheFormularios.timestamp = null;
+  console.log('🗑️ Caché de formularios invalidado');
+}
+
+// ===================================
+// MEMOIZACIÓN DE ESTADÍSTICAS
+// ===================================
+// Cache para resultados calculados de estadísticas
+const cacheEstadisticas = {
+  general: null,
+  tutores: null,
+  profesores: null
+};
+
+/**
+ * Invalida el caché de estadísticas (útil cuando se actualizan datos)
+ */
+function invalidarCacheEstadisticas() {
+  cacheEstadisticas.general = null;
+  cacheEstadisticas.tutores = null;
+  cacheEstadisticas.profesores = null;
+  console.log('🗑️ Caché de estadísticas invalidado');
+}
 
 // ===================================
 // FUNCIÓN DE REINTENTOS AUTOMÁTICOS
@@ -105,10 +323,24 @@ function convertirFechaInputAISOColombia(fechaInput, hora = "00:00:00") {
 // ===================================
 async function supabaseQuery(table, options = {}) {
   let url = `${SUPABASE_URL}/rest/v1/${table}`;
+  const params = [];
   
-  if (options.select) url += `?select=${options.select}`;
-  if (options.eq) url += `${options.select ? '&' : '?'}${options.eq.field}=eq.${options.eq.value}`;
-  if (options.order) url += `${url.includes('?') ? '&' : '?'}order=${options.order}`;
+  if (options.select) params.push(`select=${options.select}`);
+  if (options.eq) params.push(`${options.eq.field}=eq.${encodeURIComponent(options.eq.value)}`);
+  if (options.ilike) params.push(`${options.ilike.field}=ilike.${encodeURIComponent(options.ilike.value)}`);
+  if (options.order) params.push(`order=${options.order}`);
+  
+  // Soporte para filtro "in" (múltiples valores) - útil para filtrar por múltiples facultades
+  if (options.in) {
+    const { field, values } = options.in;
+    // PostgREST usa formato: campo=in.(valor1,valor2,valor3)
+    const valoresEncoded = values.map(v => encodeURIComponent(v)).join(',');
+    params.push(`${field}=in.(${valoresEncoded})`);
+  }
+  
+  if (params.length > 0) {
+    url += `?${params.join('&')}`;
+  }
   
   const headers = {
     'apikey': SUPABASE_KEY,
@@ -260,6 +492,157 @@ function limpiarEspacios(input) {
   }
 }
 
+// ===================================
+// FUNCIONES HELPER REUTILIZABLES
+// ===================================
+
+/**
+ * Pobla un elemento select con opciones desde un array de datos
+ * @param {HTMLElement} selectElement - Elemento select a poblar
+ * @param {Array} datos - Array de objetos o strings con los datos
+ * @param {Object} opciones - Opciones de configuración
+ * @param {string} opciones.valueKey - Clave para el valor (si datos es array de objetos)
+ * @param {string} opciones.textKey - Clave para el texto (si datos es array de objetos)
+ * @param {string} opciones.primeraOpcion - Texto de la primera opción (por defecto vacío)
+ * @param {Function} opciones.ordenar - Función de ordenamiento personalizada
+ * @param {Object} opciones.opcionExtra - Objeto con {value, text, style} para opción adicional
+ */
+function poblarSelect(selectElement, datos, opciones = {}) {
+  const {
+    valueKey = null,
+    textKey = null,
+    primeraOpcion = '',
+    ordenar = null,
+    opcionExtra = null
+  } = opciones;
+  
+  // Limpiar select y agregar primera opción
+  selectElement.innerHTML = primeraOpcion ? `<option value="">${primeraOpcion}</option>` : '';
+  
+  if (!datos || datos.length === 0) return;
+  
+  // Ordenar datos si se proporciona función
+  const datosOrdenados = ordenar ? [...datos].sort(ordenar) : datos;
+  
+  // Crear fragment para mejor rendimiento
+  const fragment = document.createDocumentFragment();
+  
+  for (const item of datosOrdenados) {
+    const option = document.createElement('option');
+    
+    if (typeof item === 'string') {
+      option.value = item;
+      option.textContent = item;
+    } else {
+      option.value = valueKey ? item[valueKey] : item;
+      option.textContent = textKey ? item[textKey] : item;
+    }
+    
+    fragment.appendChild(option);
+  }
+  
+  // Agregar opción extra si se proporciona
+  if (opcionExtra) {
+    const optionExtra = document.createElement('option');
+    optionExtra.value = opcionExtra.value;
+    optionExtra.textContent = opcionExtra.text;
+    if (opcionExtra.style) {
+      Object.assign(optionExtra.style, opcionExtra.style);
+    }
+    fragment.appendChild(optionExtra);
+  }
+  
+  selectElement.appendChild(fragment);
+}
+
+/**
+ * Obtiene tutores según la sede seleccionada
+ * @param {string} sede - Sede ('Norte', 'Sur', 'Virtual')
+ * @returns {Array} Array de tutores
+ */
+function obtenerTutoresPorSede(sede) {
+  if (sede === 'Virtual') {
+    return [...datosCache.tutoresNorte, ...datosCache.tutoresSur];
+  } else if (sede === 'Norte') {
+    return datosCache.tutoresNorte;
+  } else if (sede === 'Sur') {
+    return datosCache.tutoresSur;
+  }
+  return [];
+}
+
+/**
+ * Formatea una fecha a hora en formato HH:MM
+ * @param {Date} fecha - Fecha a formatear
+ * @returns {string} Hora formateada
+ */
+function formatearHora(fecha) {
+  const horas = String(fecha.getHours()).padStart(2, '0');
+  const minutos = String(fecha.getMinutes()).padStart(2, '0');
+  return `${horas}:${minutos}`;
+}
+
+/**
+ * Convierte una fecha a número de serie de Excel
+ * @param {Date} fecha - Fecha a convertir
+ * @returns {number} Número de serie de Excel
+ */
+function convertirFechaASerialExcel(fecha) {
+  return (fecha - new Date(1899, 11, 30)) / 86400000;
+}
+
+/**
+ * Aplica formato de fecha y documento a una hoja de Excel
+ * @param {Object} ws - Worksheet de XLSX
+ * @param {Object} range - Rango decodificado de la hoja
+ * @param {number} columnaFecha - Índice de columna de fecha (0-based)
+ * @param {number} columnaDocumento - Índice de columna de documento (0-based)
+ */
+function aplicarFormatoExcel(ws, range, columnaFecha = 0, columnaDocumento = 2) {
+  // Aplicar formato de fecha DD/MM/YYYY
+  for (let row = 1; row <= range.e.r; row++) {
+    const fechaCell = XLSX.utils.encode_cell({ r: row, c: columnaFecha });
+    if (ws[fechaCell] && row > 0) {
+      ws[fechaCell].t = 'n';
+      ws[fechaCell].z = 'dd/mm/yyyy';
+    }
+  }
+  
+  // Aplicar formato a documento como número
+  for (let row = 1; row <= range.e.r; row++) {
+    const docCell = XLSX.utils.encode_cell({ r: row, c: columnaDocumento });
+    if (ws[docCell] && row > 0) {
+      ws[docCell].t = 'n';
+      ws[docCell].z = '0';
+    }
+  }
+}
+
+/**
+ * Maneja el estado de un botón (desactivar/reactivar)
+ * @param {HTMLElement} boton - Elemento botón
+ * @param {boolean} desactivar - true para desactivar, false para reactivar
+ * @param {string} textoDesactivado - Texto cuando está desactivado
+ * @param {string} textoOriginal - Texto original del botón
+ */
+function manejarEstadoBoton(boton, desactivar, textoDesactivado = '', textoOriginal = '') {
+  if (desactivar) {
+    boton.disabled = true;
+    boton.style.opacity = '0.6';
+    boton.style.cursor = 'not-allowed';
+    if (textoDesactivado) {
+      boton.textContent = textoDesactivado;
+    }
+  } else {
+    boton.disabled = false;
+    boton.style.opacity = '1';
+    boton.style.cursor = 'pointer';
+    if (textoOriginal) {
+      boton.textContent = textoOriginal;
+    }
+  }
+}
+
 
 
 // ===================================
@@ -273,8 +656,9 @@ function mostrarPantalla(id) {
 
 // Función para mostrar el contenido del formulario (ocultar bienvenida)
 function mostrarContenidoFormulario() {
-  const pantallaBienvenida = document.getElementById('pantallaBienvenida');
-  const contenidoFormulario = document.getElementById('contenidoFormulario');
+  // Usar caché DOM
+  const pantallaBienvenida = elementosDOM.pantallaBienvenida || document.getElementById('pantallaBienvenida');
+  const contenidoFormulario = elementosDOM.contenidoFormulario || document.getElementById('contenidoFormulario');
   const body = document.body;
   
   // Actualizar estado de navegación
@@ -306,20 +690,11 @@ async function mostrarLogin() {
   mostrarContenidoFormulario();
   setTimeout(() => {
     mostrarPantalla('pantallaLogin');
-    document.getElementById('mensajeLogin').innerHTML = '';
-    
-    // PRECARGAR DATOS DEL FORMULARIO
-    if (datosCache.tutoresNorte.length === 0) {
-      const mensajeLogin = document.getElementById('mensajeLogin');
-      mensajeLogin.innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; font-size: 13px; margin-top: 10px;">Cargando datos del formulario...</p>';
-      
-      precargarDatosFormulario().then(() => {
-        mensajeLogin.innerHTML = '';
-      }).catch(error => {
-        mensajeLogin.innerHTML = '';
-        console.error('Error precargando datos:', error);
-      });
+    // Usar caché DOM y textContent en lugar de innerHTML
+    if (elementosDOM.mensajeLogin) {
+      elementosDOM.mensajeLogin.textContent = '';
     }
+    // Los datos del formulario se cargarán SOLO cuando se haga click en "Continuar" (iniciarSesion)
   }, 550);
 }
 
@@ -328,27 +703,28 @@ async function mostrarRegistro() {
   mostrarContenidoFormulario();
   setTimeout(() => {
     mostrarPantalla('pantallaRegistro');
-    document.getElementById('mensajeRegistro').innerHTML = '';
-    document.getElementById('confirmacionDatos').classList.add('hidden');
-    document.getElementById('btnConfirmarRegistro').classList.add('hidden');
+    // Usar caché DOM y textContent en lugar de innerHTML
+    if (elementosDOM.mensajeRegistro) {
+      elementosDOM.mensajeRegistro.textContent = '';
+    }
+    if (elementosDOM.confirmacionDatos) {
+      elementosDOM.confirmacionDatos.classList.add('hidden');
+    }
+    if (elementosDOM.btnConfirmarRegistro) {
+      elementosDOM.btnConfirmarRegistro.classList.add('hidden');
+    }
     
     // Mostrar paso de verificación de documento
-    document.getElementById('pasoDocumento').classList.remove('hidden');
-    document.getElementById('formRegistro').classList.add('hidden');
-    document.getElementById('regDocumento').value = '';
-    
-    // CARGAR DATOS DEL REGISTRO
-    if (datosCache.facultadesCarreras.length === 0) {
-      mostrarCargando('mensajeRegistro');
-      precargarDatosRegistro().then(() => {
-        document.getElementById('mensajeRegistro').innerHTML = '';
-        cargarFacultades();
-      }).catch(error => {
-        mostrarMensaje('mensajeRegistro', 'Error al cargar los datos. Por favor intenta de nuevo.', 'error');
-      });
-    } else {
-      cargarFacultades();
+    if (elementosDOM.pasoDocumento) {
+      elementosDOM.pasoDocumento.classList.remove('hidden');
     }
+    if (elementosDOM.formRegistro) {
+      elementosDOM.formRegistro.classList.add('hidden');
+    }
+    if (elementosDOM.regDocumento) {
+      elementosDOM.regDocumento.value = '';
+    }
+    // Los datos del registro se cargarán SOLO cuando se haga click en "Continuar" (verificarDocumento)
   }, 550);
 }
 
@@ -357,57 +733,74 @@ function mostrarLoginAdmin() {
   mostrarContenidoFormulario();
   setTimeout(() => {
     mostrarPantalla('pantallaAdminLogin');
-    document.getElementById('mensajeAdminLogin').innerHTML = '';
+    // Usar caché DOM y textContent en lugar de innerHTML
+    if (elementosDOM.mensajeAdminLogin) {
+      elementosDOM.mensajeAdminLogin.textContent = '';
+    }
   }, 550);
 }
 
 function mostrarModalHorarios() {
-  const modal = document.getElementById('modalHorarios');
-  modal.classList.remove('hidden');
-  // Prevenir scroll del body cuando el modal está abierto
-  document.body.style.overflow = 'hidden';
+  if (elementosDOM.modalHorarios) {
+    elementosDOM.modalHorarios.classList.remove('hidden');
+    // Prevenir scroll del body cuando el modal está abierto
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function cerrarModalHorarios() {
-  const modal = document.getElementById('modalHorarios');
-  modal.classList.add('hidden');
-  // Restaurar scroll del body
-  document.body.style.overflow = '';
-  // Ocultar todos los horarios al cerrar
-  document.getElementById('horarioNorteModal').classList.add('hidden');
-  document.getElementById('horarioSurModal').classList.add('hidden');
-  document.getElementById('horarioVirtualModal').classList.add('hidden');
+  if (elementosDOM.modalHorarios) {
+    elementosDOM.modalHorarios.classList.add('hidden');
+    // Restaurar scroll del body
+    document.body.style.overflow = '';
+    // Ocultar todos los horarios al cerrar usando caché DOM
+    if (elementosDOM.horarioNorteModal) {
+      elementosDOM.horarioNorteModal.classList.add('hidden');
+    }
+    if (elementosDOM.horarioSurModal) {
+      elementosDOM.horarioSurModal.classList.add('hidden');
+    }
+    if (elementosDOM.horarioVirtualModal) {
+      elementosDOM.horarioVirtualModal.classList.add('hidden');
+    }
+  }
 }
 
 function mostrarHorarioEnModal(sede) {
-  // Ocultar todos los horarios primero
-  document.getElementById('horarioNorteModal').classList.add('hidden');
-  document.getElementById('horarioSurModal').classList.add('hidden');
-  document.getElementById('horarioVirtualModal').classList.add('hidden');
+  // Ocultar todos los horarios primero usando caché DOM
+  if (elementosDOM.horarioNorteModal) {
+    elementosDOM.horarioNorteModal.classList.add('hidden');
+  }
+  if (elementosDOM.horarioSurModal) {
+    elementosDOM.horarioSurModal.classList.add('hidden');
+  }
+  if (elementosDOM.horarioVirtualModal) {
+    elementosDOM.horarioVirtualModal.classList.add('hidden');
+  }
   
   // Mostrar el horario seleccionado
-  if (sede === 'norte') {
-    document.getElementById('horarioNorteModal').classList.remove('hidden');
-  } else if (sede === 'sur') {
-    document.getElementById('horarioSurModal').classList.remove('hidden');
-  } else if (sede === 'virtual') {
-    document.getElementById('horarioVirtualModal').classList.remove('hidden');
+  if (sede === 'norte' && elementosDOM.horarioNorteModal) {
+    elementosDOM.horarioNorteModal.classList.remove('hidden');
+  } else if (sede === 'sur' && elementosDOM.horarioSurModal) {
+    elementosDOM.horarioSurModal.classList.remove('hidden');
+  } else if (sede === 'virtual' && elementosDOM.horarioVirtualModal) {
+    elementosDOM.horarioVirtualModal.classList.remove('hidden');
   }
 }
 
 // Cerrar modal al hacer clic fuera de él
 document.addEventListener('DOMContentLoaded', function() {
-  const modalHorarios = document.getElementById('modalHorarios');
-  if (modalHorarios) {
-    modalHorarios.addEventListener('click', function(e) {
-      if (e.target === modalHorarios) {
+  // Usar caché DOM después de inicialización
+  if (elementosDOM.modalHorarios) {
+    elementosDOM.modalHorarios.addEventListener('click', function(e) {
+      if (e.target === elementosDOM.modalHorarios) {
         cerrarModalHorarios();
       }
     });
     
     // Cerrar modal con tecla ESC
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && !modalHorarios.classList.contains('hidden')) {
+      if (e.key === 'Escape' && elementosDOM.modalHorarios && !elementosDOM.modalHorarios.classList.contains('hidden')) {
         cerrarModalHorarios();
       }
     });
@@ -415,8 +808,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function volverInicio() {
-  const pantallaBienvenida = document.getElementById('pantallaBienvenida');
-  const contenidoFormulario = document.getElementById('contenidoFormulario');
+  // Usar caché DOM
+  const pantallaBienvenida = elementosDOM.pantallaBienvenida || document.getElementById('pantallaBienvenida');
+  const contenidoFormulario = elementosDOM.contenidoFormulario || document.getElementById('contenidoFormulario');
   const body = document.body;
   
   // Actualizar estado de navegación
@@ -424,17 +818,16 @@ function volverInicio() {
   
   limpiarFormularios();
   formularioEnviandose = false;
-  const btnContinuar = document.getElementById('btnContinuar');
-  const btnConfirmarRegistro = document.getElementById('btnConfirmarRegistro');
-  const confirmacionDatos = document.getElementById('confirmacionDatos');
+  const btnContinuar = elementosDOM.btnContinuar || document.getElementById('btnContinuar');
+  const btnConfirmarRegistro = elementosDOM.btnConfirmarRegistro || document.getElementById('btnConfirmarRegistro');
+  const confirmacionDatos = elementosDOM.confirmacionDatos || document.getElementById('confirmacionDatos');
   
   if (btnContinuar) btnContinuar.classList.remove('hidden');
   if (btnConfirmarRegistro) btnConfirmarRegistro.classList.add('hidden');
   if (confirmacionDatos) confirmacionDatos.classList.add('hidden');
   
-  // Cerrar modal de horarios si está abierto
-  const modalHorarios = document.getElementById('modalHorarios');
-  if (modalHorarios && !modalHorarios.classList.contains('hidden')) {
+  // Cerrar modal de horarios si está abierto usando caché DOM
+  if (elementosDOM.modalHorarios && !elementosDOM.modalHorarios.classList.contains('hidden')) {
     cerrarModalHorarios();
   }
   
@@ -456,8 +849,8 @@ function volverInicio() {
   }, 500);
 
 
-// REACTIVAR BOTONES
-  const btnEnviar = document.getElementById('btnEnviar');
+// REACTIVAR BOTONES usando caché DOM
+  const btnEnviar = elementosDOM.btnEnviar || document.getElementById('btnEnviar');
   if (btnEnviar) {
     btnEnviar.disabled = false;
     btnEnviar.textContent = 'Enviar Formulario';
@@ -465,7 +858,7 @@ function volverInicio() {
     btnEnviar.style.cursor = 'pointer';
   }
   
-  const btnRegistro = document.getElementById('btnConfirmarRegistro');
+  const btnRegistro = elementosDOM.btnConfirmarRegistro || document.getElementById('btnConfirmarRegistro');
   if (btnRegistro) {
     btnRegistro.disabled = false;
     btnRegistro.textContent = 'Confirmar y Registrarme';
@@ -475,21 +868,33 @@ function volverInicio() {
 }
 
 function limpiarFormularios() {
-  document.getElementById('formRegistro').reset();
-  document.getElementById('formLogin').reset();
-  document.getElementById('formTutoria').reset();
-  document.getElementById('formAdminLogin').reset();
+  // Usar caché DOM
+  if (elementosDOM.formRegistro) elementosDOM.formRegistro.reset();
+  if (elementosDOM.formLogin) elementosDOM.formLogin.reset();
+  if (elementosDOM.formTutoria) elementosDOM.formTutoria.reset();
+  if (elementosDOM.formAdminLogin) elementosDOM.formAdminLogin.reset();
 }
 
 function mostrarMensaje(elementId, mensaje, tipo) {
-  const elemento = document.getElementById(elementId);
-  elemento.innerHTML = `<div class="mensaje ${tipo}">${mensaje}</div>`;
+  // Intentar usar caché DOM primero, si no está disponible usar getElementById
+  let elemento = elementosDOM[elementId] || document.getElementById(elementId);
+  
+  if (!elemento) return;
+  
+  // Usar manipulación DOM directa en lugar de innerHTML
+  elemento.textContent = ''; // Limpiar primero
+  const divMensaje = document.createElement('div');
+  divMensaje.className = `mensaje ${tipo}`;
+  divMensaje.textContent = mensaje;
+  elemento.appendChild(divMensaje);
   
   setTimeout(() => {
     elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }, 100);
   
-  setTimeout(() => elemento.innerHTML = '', 10000);
+  setTimeout(() => {
+    elemento.textContent = ''; // Limpiar usando textContent
+  }, 10000);
 }
 
 // Función para hacer scroll a un elemento de error
@@ -522,8 +927,16 @@ function scrollToError(elemento) {
 }
 
 function mostrarCargando(elementId) {
-  const elemento = document.getElementById(elementId);
-  elemento.innerHTML = '<div class="loader"></div>';
+  // Intentar usar caché DOM primero
+  let elemento = elementosDOM[elementId] || document.getElementById(elementId);
+  
+  if (!elemento) return;
+  
+  // Usar manipulación DOM directa en lugar de innerHTML
+  elemento.textContent = ''; // Limpiar primero
+  const loader = document.createElement('div');
+  loader.className = 'loader';
+  elemento.appendChild(loader);
   
   setTimeout(() => {
     elemento.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -548,61 +961,56 @@ function validarDocumento(documento) {
 // CARGAR FACULTADES Y PROGRAMAS
 // ===================================
 function cargarFacultades() {
-  const select = document.getElementById('regFacultad');
-  select.innerHTML = '<option value="">Seleccione una facultad</option>';
-  
-  const facultadesOrdenadas = Object.keys(facultadesData).sort();
-  const fragment = document.createDocumentFragment();
-  
-  for (const facultad of facultadesOrdenadas) {
-    const option = document.createElement('option');
-    option.value = facultad;
-    option.textContent = facultad;
-    fragment.appendChild(option);
-  }
-  
-  select.appendChild(fragment);
+  // Usar caché DOM
+  const select = elementosDOM.regFacultad || document.getElementById('regFacultad');
+  if (!select) return;
+  const facultades = Object.keys(facultadesData);
+  poblarSelect(select, facultades, {
+    primeraOpcion: 'Seleccione una facultad',
+    ordenar: (a, b) => a.localeCompare(b)
+  });
 }
 
 function cargarProgramas() {
-  const facultad = document.getElementById('regFacultad').value;
-  const selectPrograma = document.getElementById('regPrograma');
+  // Usar caché DOM
+  const selectFacultad = elementosDOM.regFacultad || document.getElementById('regFacultad');
+  const selectPrograma = elementosDOM.regPrograma || document.getElementById('regPrograma');
+  
+  if (!selectFacultad || !selectPrograma) return;
+  
+  const facultad = selectFacultad.value;
   
   if (!facultad) {
     selectPrograma.disabled = true;
-    selectPrograma.innerHTML = '<option value="">Primero seleccione una facultad</option>';
+    // Usar manipulación DOM directa en lugar de innerHTML
+    selectPrograma.textContent = '';
+    const option = document.createElement('option');
+    option.value = '';
+    option.textContent = 'Primero seleccione una facultad';
+    selectPrograma.appendChild(option);
     return;
   }
   
   selectPrograma.disabled = false;
-  selectPrograma.innerHTML = '<option value="">Seleccione un programa</option>';
-  
   const programas = facultadesData[facultad] || [];
-  const programasOrdenados = programas.sort();
-  const fragment = document.createDocumentFragment();
-  
-  for (const programa of programasOrdenados) {
-    const option = document.createElement('option');
-    option.value = programa;
-    option.textContent = programa;
-    fragment.appendChild(option);
-  }
-  
-  selectPrograma.appendChild(fragment);
+  poblarSelect(selectPrograma, programas, {
+    primeraOpcion: 'Seleccione un programa',
+    ordenar: (a, b) => a.localeCompare(b)
+  });
 }
 
 // ===================================
 // CONFIRMACIÓN Y REGISTRO
 // ===================================
 function mostrarConfirmacion() {
-  // Validar que el formulario sea válido antes de continuar
-  const form = document.getElementById('formRegistro');
-  if (!form.checkValidity()) {
-    form.reportValidity(); // Muestra los mensajes de required del navegador
+  // Validar que el formulario sea válido antes de continuar usando caché DOM
+  const form = elementosDOM.formRegistro || document.getElementById('formRegistro');
+  if (!form || !form.checkValidity()) {
+    if (form) form.reportValidity(); // Muestra los mensajes de required del navegador
     return;
   }
   
-  const doc = document.getElementById('regDocumento').value;
+  const doc = (elementosDOM.regDocumento || document.getElementById('regDocumento'))?.value;
   
   const validacion = validarDocumento(doc);
   if (!validacion.valido) {
@@ -610,17 +1018,18 @@ function mostrarConfirmacion() {
     return;
   }
     
-  const primerNombre = document.getElementById('regPrimerNombre').value.toUpperCase();
-  const segundoNombre = document.getElementById('regSegundoNombre').value.toUpperCase();
-  const primerApellido = document.getElementById('regPrimerApellido').value.toUpperCase();
-  const segundoApellido = document.getElementById('regSegundoApellido').value.toUpperCase();
-  const facultad = document.getElementById('regFacultad').value;
-  const programa = document.getElementById('regPrograma').value;
-  const sede = document.getElementById('regSede').value;
+  // Usar caché DOM para obtener valores
+  const primerNombre = (elementosDOM.regPrimerNombre || document.getElementById('regPrimerNombre'))?.value.toUpperCase();
+  const segundoNombre = (elementosDOM.regSegundoNombre || document.getElementById('regSegundoNombre'))?.value.toUpperCase();
+  const primerApellido = (elementosDOM.regPrimerApellido || document.getElementById('regPrimerApellido'))?.value.toUpperCase();
+  const segundoApellido = (elementosDOM.regSegundoApellido || document.getElementById('regSegundoApellido'))?.value.toUpperCase();
+  const facultad = (elementosDOM.regFacultad || document.getElementById('regFacultad'))?.value;
+  const programa = (elementosDOM.regPrograma || document.getElementById('regPrograma'))?.value;
+  const sede = (elementosDOM.regSede || document.getElementById('regSede'))?.value;
   
   const nombreCompleto = `${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`.replace(/\s+/g, ' ');
-  const semestre = document.getElementById('regSemestre').value;
-  const grupo = document.getElementById('regGrupo').value.toUpperCase();
+  const semestre = (elementosDOM.regSemestre || document.getElementById('regSemestre'))?.value;
+  const grupo = (elementosDOM.regGrupo || document.getElementById('regGrupo'))?.value.toUpperCase();
 
   const html = `
     <div class="confirmation-item">
@@ -653,13 +1062,25 @@ function mostrarConfirmacion() {
     </div>
   `;
 
-document.getElementById('datosConfirmacion').innerHTML = html;
-  document.getElementById('confirmacionDatos').classList.remove('hidden');
-  document.getElementById('btnConfirmarRegistro').classList.remove('hidden');
-  document.getElementById('btnContinuar').classList.add('hidden');
+  // Usar caché DOM y manipulación DOM directa en lugar de innerHTML
+  const datosConfirmacion = elementosDOM.datosConfirmacion || document.getElementById('datosConfirmacion');
+  if (datosConfirmacion) {
+    datosConfirmacion.innerHTML = html; // Mantener innerHTML aquí porque es HTML complejo estructurado
+  }
+  if (elementosDOM.confirmacionDatos) {
+    elementosDOM.confirmacionDatos.classList.remove('hidden');
+  }
+  if (elementosDOM.btnConfirmarRegistro) {
+    elementosDOM.btnConfirmarRegistro.classList.remove('hidden');
+  }
+  if (elementosDOM.btnContinuar) {
+    elementosDOM.btnContinuar.classList.add('hidden');
+  }
   
   setTimeout(() => {
-    document.getElementById('confirmacionDatos').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (elementosDOM.confirmacionDatos) {
+      elementosDOM.confirmacionDatos.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, 100);
 }
 
@@ -668,6 +1089,13 @@ async function verificarDocumento(event) {
   event.preventDefault();
   
   const doc = document.getElementById('regDocumento').value;
+  const docConfirmar = document.getElementById('regDocumentoConfirmar').value;
+  
+  // Validar que ambos documentos coincidan
+  if (doc !== docConfirmar) {
+    mostrarMensaje('mensajeRegistro', 'Los documentos no coinciden. Por favor verifica que hayas escrito correctamente tu documento en ambos campos.', 'error');
+    return;
+  }
   
   const validacion = validarDocumento(doc);
   if (!validacion.valido) {
@@ -678,12 +1106,22 @@ async function verificarDocumento(event) {
   mostrarCargando('mensajeRegistro');
 
   try {
+    // PRECARGAR DATOS DEL REGISTRO SOLO AQUÍ (cuando se hace click en Continuar)
+    if (datosCache.facultadesCarreras.length === 0) {
+      try {
+        await precargarDatosRegistro();
+      } catch (error) {
+        mostrarMensaje('mensajeRegistro', 'Error al cargar los datos. Por favor intenta de nuevo.', 'error');
+        return;
+      }
+    }
+
     const existing = await supabaseQuery('estudiantes', {
       eq: { field: 'documento', value: doc }
     });
 
     if (existing.length > 0) {
-      mostrarMensaje('mensajeRegistro', 'Este documento ya está registrado en el sistema. Si necesita actualizar sus datos, contacte al administrador.', 'error');
+      mostrarMensaje('mensajeRegistro', 'Este documento ya está registrado correctamente.', 'success');
       return;
     }
 
@@ -693,6 +1131,9 @@ async function verificarDocumento(event) {
     document.getElementById('formRegistro').classList.remove('hidden');
     document.getElementById('regDocumentoMostrar').value = doc;
     
+    // Cargar facultades ahora que los datos están disponibles
+    cargarFacultades();
+    
     // Hacer scroll al inicio de la página
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -700,6 +1141,21 @@ async function verificarDocumento(event) {
 
   } catch (error) {
     mostrarMensaje('mensajeRegistro', 'Error al verificar el documento: ' + error.message, 'error');
+  }
+}
+
+// FUNCIÓN PARA MANEJAR EL SUBMIT DEL FORMULARIO DE REGISTRO
+function manejarSubmitRegistro(event) {
+  event.preventDefault();
+  
+  const btnConfirmar = document.getElementById('btnConfirmarRegistro');
+  
+  // Si el botón de confirmar está oculto, mostrar la confirmación
+  if (btnConfirmar && btnConfirmar.classList.contains('hidden')) {
+    mostrarConfirmacion();
+  } else {
+    // Si el botón de confirmar está visible, enviar el registro
+    registrarEstudiante(event);
   }
 }
 
@@ -745,7 +1201,7 @@ const datos = {
       setTimeout(() => {
         modal.style.display = 'none';
         modal.classList.add('hidden');
-        volverInicio();
+        location.reload(); // Recargar página para limpiar todo
       }, 3000);
     } else {
       mostrarMensaje('mensajeRegistro', 'Error: No se pudo completar el registro', 'error');
@@ -792,9 +1248,8 @@ async function iniciarSesion(event) {
   // ASEGURAR QUE TODOS LOS DATOS DEL FORMULARIO ESTÉN CARGADOS
   if (datosCache.tutoresNorte.length === 0 || datosCache.materias.length === 0 || datosCache.temas.length === 0) {
     try {
-      console.log('🔄 Precargando datos del formulario antes de iniciar sesión...');
+      // precargarDatosFormulario() ya imprime sus propios mensajes, no duplicar aquí
       await precargarDatosFormulario();
-      console.log('✅ Datos del formulario cargados correctamente');
     } catch (error) {
       console.error('❌ Error al cargar datos:', error);
       mostrarMensaje('mensajeLogin', 'Error al cargar los datos del formulario. Por favor intenta de nuevo.', 'error');
@@ -842,8 +1297,13 @@ async function iniciarSesion(event) {
 
     formularioEnviandose = false;
     mostrarPantalla('pantallaFormulario');
-    document.getElementById('nombreUsuario').textContent = 'Bienvenido(a): ' + datosEstudiante.nombreCensurado;
-    document.getElementById('mensajeFormulario').innerHTML = '';
+    // Usar caché DOM
+    if (elementosDOM.nombreUsuario) {
+      elementosDOM.nombreUsuario.textContent = 'Bienvenido(a): ' + datosEstudiante.nombreCensurado;
+    }
+    if (elementosDOM.mensajeFormulario) {
+      elementosDOM.mensajeFormulario.textContent = '';
+    }
     actualizarBotonCerrarSesion();
     actualizarProgreso(1);
 
@@ -967,20 +1427,13 @@ async function cargarInstructores() {
 
     let instructores = [];
     
-    if (sede === 'Virtual') {
-      instructores = [...datosCache.tutoresNorte, ...datosCache.tutoresSur];
-    } else if (sede === 'Norte') {
-      instructores = datosCache.tutoresNorte;
-    } else if (sede === 'Sur') {
-      instructores = datosCache.tutoresSur;
-    }
+    instructores = obtenerTutoresPorSede(sede);
 
     const instructoresOrdenados = [...instructores].sort((a, b) => a.nombre.localeCompare(b.nombre));
-    selectInstructor.innerHTML = '<option value="">Seleccione un tutor</option>';
     
+    // Eliminar duplicados
     const instructoresUnicos = [];
     const nombresVistos = new Set();
-    
     for (const inst of instructoresOrdenados) {
       if (!nombresVistos.has(inst.nombre)) {
         nombresVistos.add(inst.nombre);
@@ -988,14 +1441,11 @@ async function cargarInstructores() {
       }
     }
     
-    const fragment = document.createDocumentFragment();
-    for (const inst of instructoresUnicos) {
-      const option = document.createElement('option');
-      option.value = inst.nombre;
-      option.textContent = inst.nombre;
-      fragment.appendChild(option);
-    }
-    selectInstructor.appendChild(fragment);
+    poblarSelect(selectInstructor, instructoresUnicos, {
+      valueKey: 'nombre',
+      textKey: 'nombre',
+      primeraOpcion: 'Seleccione un tutor'
+    });
     
     actualizarProgreso(2);
   } else if (tipo === 'Profesor') {
@@ -1035,17 +1485,20 @@ async function cargarProfesoresPorFacultad() {
 
   const profesoresOrdenados = [...profesores].sort((a, b) => a.nombre.localeCompare(b.nombre));
 
-  selectInstructor.innerHTML = '<option value="">Seleccione un profesor</option>';
+  poblarSelect(selectInstructor, profesoresOrdenados, {
+    valueKey: 'nombre',
+    textKey: 'nombre',
+    primeraOpcion: 'Seleccione un profesor',
+    opcionExtra: null
+  });
   
-  const fragment = document.createDocumentFragment();
-  for (const prof of profesoresOrdenados) {
-    const option = document.createElement('option');
-    option.value = prof.nombre;
-    option.setAttribute('data-area', prof.area);
-    option.textContent = prof.nombre;
-    fragment.appendChild(option);
-  }
-  selectInstructor.appendChild(fragment);
+  // Agregar atributo data-area manualmente ya que poblarSelect no lo maneja directamente
+  profesoresOrdenados.forEach((prof, index) => {
+    const option = selectInstructor.options[index + 1]; // +1 por la opción vacía
+    if (option) {
+      option.setAttribute('data-area', prof.area);
+    }
+  });
 }
 
 // ===================================
@@ -1070,7 +1523,7 @@ async function cargarMaterias() {
     console.warn('⚠️ Datos del formulario no disponibles, recargando...');
     const mensajeFormulario = document.getElementById('mensajeFormulario');
     if (mensajeFormulario) {
-      mensajeFormulario.innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; margin-top: 10px;">Cargando datos...</p>';
+      mensajeFormulario.innerHTML = '<div class="loader"></div>';
     }
     
     try {
@@ -1096,13 +1549,7 @@ async function cargarMaterias() {
     const sede = document.getElementById('sedeTutoria').value;
     let tutores = [];
     
-    if (sede === 'Virtual') {
-      tutores = [...datosCache.tutoresNorte, ...datosCache.tutoresSur];
-    } else if (sede === 'Norte') {
-      tutores = datosCache.tutoresNorte;
-    } else if (sede === 'Sur') {
-      tutores = datosCache.tutoresSur;
-    }
+    tutores = obtenerTutoresPorSede(sede);
     
     for (const tutor of tutores) {
       if (tutor.nombre === instructorNombre && !areasInstructor.includes(tutor.area)) {
@@ -1128,23 +1575,16 @@ async function cargarMaterias() {
   const materiasOrdenadas = materiasFiltradas.sort((a, b) => a.materia.localeCompare(b.materia));
 
   const selectMateria = document.getElementById('asignatura');
-  selectMateria.innerHTML = '<option value="">Seleccione una asignatura</option>';
-  
-  const fragment = document.createDocumentFragment();
-  for (const mat of materiasOrdenadas) {
-    const option = document.createElement('option');
-    option.value = mat.materia;
-    option.textContent = mat.materia;
-    fragment.appendChild(option);
-  }
-  
-  const optionOtra = document.createElement('option');
-  optionOtra.value = 'Otra';
-  optionOtra.textContent = 'Otra: ¿Cuál?';
-  optionOtra.style.fontWeight = 'bold';
-  fragment.appendChild(optionOtra);
-  
-  selectMateria.appendChild(fragment);
+  poblarSelect(selectMateria, materiasOrdenadas, {
+    valueKey: 'materia',
+    textKey: 'materia',
+    primeraOpcion: 'Seleccione una asignatura',
+    opcionExtra: {
+      value: 'Otra',
+      text: 'Otra: ¿Cuál?',
+      style: { fontWeight: 'bold' }
+    }
+  });
   
   actualizarProgreso(3);
 }
@@ -1224,23 +1664,16 @@ async function cargarTemas() {
     
     selectTema.style.display = '';
     selectTema.required = true;
-    selectTema.innerHTML = '<option value="">Seleccione un tema</option>';
-    
-    const fragment = document.createDocumentFragment();
-    for (const tem of temasOrdenados) {
-      const option = document.createElement('option');
-      option.value = tem.tema;
-      option.textContent = tem.tema;
-      fragment.appendChild(option);
-    }
-
-    const optionOtro = document.createElement('option');
-    optionOtro.value = 'Otro';
-    optionOtro.textContent = 'Otro: ¿Cuál?';
-    optionOtro.style.fontWeight = 'bold';
-    fragment.appendChild(optionOtro);
-    
-    selectTema.appendChild(fragment);
+    poblarSelect(selectTema, temasOrdenados, {
+      valueKey: 'tema',
+      textKey: 'tema',
+      primeraOpcion: 'Seleccione un tema',
+      opcionExtra: {
+        value: 'Otro',
+        text: 'Otro: ¿Cuál?',
+        style: { fontWeight: 'bold' }
+      }
+    });
     
     containerTema.classList.add('hidden');
     inputTema.required = false;
@@ -1271,10 +1704,11 @@ function toggleOtroTema() {
   }
 }
 
-// Agregar listener para calificación
+// Agregar listener para "¿Recomendarías el PMA?" - Solo esta pregunta completa el paso 4
 document.addEventListener('DOMContentLoaded', function() {
-  const calificaciones = document.querySelectorAll('input[name="calificacion"]');
-  calificaciones.forEach(radio => {
+  // Agregar listener para "¿Recomendarías el PMA?"
+  const recomendacionesPma = document.querySelectorAll('input[name="recomienda_pma"]');
+  recomendacionesPma.forEach(radio => {
     radio.addEventListener('change', function() {
       if (this.checked) {
         document.getElementById('step4').classList.add('completed');
@@ -1553,7 +1987,9 @@ const datos = {
   try {
     await supabaseInsert('formularios', datos);
     
-    document.getElementById('mensajeFormulario').innerHTML = '';
+    if (elementosDOM.mensajeFormulario) {
+      elementosDOM.mensajeFormulario.textContent = '';
+    }
     
     const modal = document.getElementById('modalExitoFormulario');
     modal.style.display = 'flex';
@@ -1729,9 +2165,8 @@ async function actualizarDatosEstudiante(event) {
     // ASEGURAR QUE TODOS LOS DATOS DEL FORMULARIO ESTÉN CARGADOS
     if (datosCache.tutoresNorte.length === 0 || datosCache.materias.length === 0 || datosCache.temas.length === 0) {
       try {
-        console.log('🔄 Precargando datos del formulario después de actualizar...');
+        // precargarDatosFormulario() ya imprime sus propios mensajes, no duplicar aquí
         await precargarDatosFormulario();
-        console.log('✅ Datos del formulario cargados correctamente');
       } catch (error) {
         console.error('❌ Error al cargar datos:', error);
         mostrarMensaje('mensajeActualizacion', 'Error al cargar los datos del formulario. Por favor intenta de nuevo.', 'error');
@@ -1741,7 +2176,9 @@ async function actualizarDatosEstudiante(event) {
     
     mostrarPantalla('pantallaFormulario');
     document.getElementById('nombreUsuario').textContent = 'Bienvenido(a): ' + datosEstudiante.nombreCensurado;
-    document.getElementById('mensajeFormulario').innerHTML = '';
+    if (elementosDOM.mensajeFormulario) {
+      elementosDOM.mensajeFormulario.textContent = '';
+    }
     actualizarBotonCerrarSesion();
     actualizarProgreso(1);
     
@@ -1832,11 +2269,23 @@ async function cambiarTab(event, tab) {
     
     // CARGAR DATOS DE ESTADÍSTICAS
     if (datosCache.tutoresNorte.length === 0) {
-      document.getElementById('statsGrid').innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; margin-top: 15px;">Cargando datos...</p>';
+      if (elementosDOM.statsGrid) {
+        elementosDOM.statsGrid.textContent = '';
+        const loader = document.createElement('div');
+        loader.className = 'loader';
+        elementosDOM.statsGrid.appendChild(loader);
+      }
       try {
         await precargarDatosEstadisticas();
       } catch (error) {
-        document.getElementById('statsGrid').innerHTML = '<p style="text-align: center; color: #dc3545;">Error al cargar datos. Por favor intenta de nuevo.</p>';
+        if (elementosDOM.statsGrid) {
+          elementosDOM.statsGrid.textContent = '';
+          const p = document.createElement('p');
+          p.style.textAlign = 'center';
+          p.style.color = '#dc3545';
+          p.textContent = 'Error al cargar datos. Por favor intenta de nuevo.';
+          elementosDOM.statsGrid.appendChild(p);
+        }
         return;
       }
     }
@@ -1853,10 +2302,11 @@ async function cambiarTab(event, tab) {
     if (!window.datosFormulariosGlobal) {
       const container = document.querySelector('#tabGraficas .chart-container');
       const contenidoOriginal = container.innerHTML;
-      container.innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; margin-top: 15px;">Cargando datos para gráficas...</p>';
+      container.innerHTML = '<div class="loader"></div>';
       
       try {
-        const data = await supabaseQuery('formularios');
+        // Usar caché de formularios en lugar de consulta directa
+        const data = await obtenerFormulariosCache();
         window.datosFormulariosGlobal = data;
         container.innerHTML = contenidoOriginal;
       } catch (error) {
@@ -1988,6 +2438,10 @@ async function actualizarEstadisticas() {
   iconActualizar.style.animation = 'spin 1s linear infinite';
   
   try {
+    // Invalidar cachés antes de actualizar
+    invalidarCacheFormularios();
+    invalidarCacheEstadisticas();
+    
     await cargarEstadisticas();
     
     // Cambiar a check (éxito)
@@ -2022,14 +2476,30 @@ async function actualizarEstadisticas() {
 
 async function cargarEstadisticas() {
   // Mostrar loader mientras carga
-  document.getElementById('statsGrid').innerHTML = '<div class="loader"></div><p style="text-align: center; color: #666; margin-top: 15px;">Cargando estadísticas...</p>';
-  document.getElementById('detallesStats').innerHTML = '';
+  // Usar caché DOM y manipulación directa
+  if (elementosDOM.statsGrid) {
+    elementosDOM.statsGrid.textContent = '';
+    const loader = document.createElement('div');
+    loader.className = 'loader';
+    elementosDOM.statsGrid.appendChild(loader);
+  }
+  if (elementosDOM.detallesStats) {
+    elementosDOM.detallesStats.textContent = '';
+  }
   
   try {
-    const data = await supabaseQuery('formularios');
+    // Usar caché de formularios en lugar de consulta directa
+    const data = await obtenerFormulariosCache();
 
     if (data.length === 0) {
-      document.getElementById('statsGrid').innerHTML = '<p style="text-align: center; color: #666;">No hay datos disponibles aún.</p>';
+      if (elementosDOM.statsGrid) {
+        elementosDOM.statsGrid.textContent = '';
+        const p = document.createElement('p');
+        p.style.textAlign = 'center';
+        p.style.color = '#666';
+        p.textContent = 'No hay datos disponibles aún.';
+        elementosDOM.statsGrid.appendChild(p);
+      }
       return;
     }
 
@@ -2049,18 +2519,43 @@ async function cargarEstadisticas() {
       <div id="contenidoEstadisticas"></div>
     `;
 
-    document.getElementById('statsGrid').innerHTML = contenidoHTML;
-    document.getElementById('detallesStats').innerHTML = '';
+    // Para contenidoHTML complejo, mantener innerHTML pero usar caché DOM
+    if (elementosDOM.statsGrid) {
+      elementosDOM.statsGrid.innerHTML = contenidoHTML;
+    }
+    if (elementosDOM.detallesStats) {
+      elementosDOM.detallesStats.textContent = '';
+    }
 
     // Guardar datos globalmente para uso posterior
+    // Solo invalidar caché de estadísticas si los datos realmente cambiaron
+    // (comparar cantidad de registros como indicador simple)
+    const datosAnteriores = window.datosFormulariosGlobal;
+    const datosCambiaron = !datosAnteriores || datosAnteriores.length !== data.length;
+    
     window.datosFormulariosGlobal = data;
+    
+    // Solo invalidar caché de estadísticas si los datos cambiaron
+    if (datosCambiaron) {
+      console.log('📊 Datos de formularios cambiaron, invalidando caché de estadísticas');
+      invalidarCacheEstadisticas();
+    } else {
+      console.log('✅ Datos de formularios sin cambios, manteniendo caché de estadísticas');
+    }
 
     // Mostrar estadísticas generales por defecto
     mostrarEstadisticas('general');
 
   } catch (error) {
     console.error('Error cargando estadísticas:', error);
-    document.getElementById('statsGrid').innerHTML = '<p style="text-align: center; color: #dc3545;">Error al cargar estadísticas. Por favor intenta de nuevo.</p>';
+    if (elementosDOM.statsGrid) {
+      elementosDOM.statsGrid.textContent = '';
+      const p = document.createElement('p');
+      p.style.textAlign = 'center';
+      p.style.color = '#dc3545';
+      p.textContent = 'Error al cargar estadísticas. Por favor intenta de nuevo.';
+      elementosDOM.statsGrid.appendChild(p);
+    }
   }
 
   const ahora = new Date().toLocaleString('es-CO', {
@@ -2092,6 +2587,15 @@ function mostrarEstadisticas(tipo, botonClickeado) {
     // Si se llama sin botón (carga inicial), activar el botón de General
     const btnGeneral = document.querySelector('.estadisticas-menu-wrapper .btn-sede');
     if (btnGeneral) btnGeneral.classList.add('activo');
+  }
+  
+  // MEMOIZACIÓN: Verificar si ya tenemos los resultados calculados en caché
+  if (cacheEstadisticas[tipo]) {
+    console.log(`✅ Usando estadísticas en caché para: ${tipo}`);
+    const cache = cacheEstadisticas[tipo];
+    document.getElementById('contenidoEstadisticas').innerHTML = cache.grid;
+    document.getElementById('detallesStats').innerHTML = cache.detalles;
+    return;
   }
   
   const data = window.datosFormulariosGlobal;
@@ -2614,6 +3118,21 @@ if (tipo === 'profesores') {
 }
 
   document.getElementById('detallesStats').innerHTML = detalles;
+  
+  // MEMOIZACIÓN: Guardar resultados calculados en caché para reutilización
+  cacheEstadisticas[tipo] = {
+    stats,
+    promedioCalificacion,
+    promedioCalificacionPMA,
+    mejorInstructor,
+    peorInstructor,
+    promediosPorInstructor,
+    datosFiltrados,
+    grid: grid.innerHTML,
+    detalles: detalles
+  };
+  
+  console.log(`💾 Estadísticas de ${tipo} guardadas en caché`);
 }
 
 
@@ -2786,14 +3305,11 @@ async function descargarPorFacultad() {
   btnDescarga.textContent = '⏳ Preparando descarga...';
   
   try {
-    // Cargar todos los datos
-    const data = await supabaseQuery('formularios', { order: 'fecha.asc' });
-    
-    // Filtrar formularios por facultades seleccionadas (leyendo directamente desde formularios)
-    const datosFinales = data.filter(item => {
-      const facultad = item.facultad;
-      // Comparar con los nombres reales de la BD
-      return facultad && nombresFacultadesBD.includes(facultad);
+    // OPTIMIZACIÓN: Filtrar en el servidor usando filtro "in" para múltiples facultades
+    // Esto evita cargar todos los formularios y filtra directamente en Supabase
+    const datosFinales = await supabaseQuery('formularios', {
+      in: { field: 'facultad', values: nombresFacultadesBD },
+      order: 'fecha.asc'
     });
     
     if (datosFinales.length === 0) {
@@ -2818,9 +3334,7 @@ function generarExcelPorFacultad(datos, facultadesSeleccionadas) {
   const datosExcel = datos.map(fila => {
     // Convertir fecha UTC a hora de Colombia
     const fechaColombia = convertirFechaAColombia(fila.fecha);
-    
-    // Convertir Date a número de serie de Excel
-    const serialDate = (fechaColombia - new Date(1899, 11, 30)) / (86400000);
+    const serialDate = convertirFechaASerialExcel(fechaColombia);
     
     return {
       'Fecha': serialDate,
@@ -2840,25 +3354,7 @@ function generarExcelPorFacultad(datos, facultadesSeleccionadas) {
   const ws = XLSX.utils.json_to_sheet(datosExcel);
   
   const range = XLSX.utils.decode_range(ws['!ref']);
-  
-  // Aplicar formato de fecha DD/MM/YYYY a la columna Fecha
-  for (let row = 1; row <= range.e.r; row++) {
-    const fechaCell = XLSX.utils.encode_cell({ r: row, c: 0 });
-    if (ws[fechaCell] && row > 0) {
-      ws[fechaCell].t = 'n';
-      ws[fechaCell].z = 'dd/mm/yyyy';
-    }
-  }
-  
-  // Aplicar formato a documento como número
-  for (let row = 1; row <= range.e.r; row++) {
-    const docCell = XLSX.utils.encode_cell({ r: row, c: 1 });
-    if (ws[docCell] && row > 0) {
-      ws[docCell].t = 'n';
-      ws[docCell].z = '0';
-    }
-  }
-  
+  aplicarFormatoExcel(ws, range, 0, 1);
   ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
   
   ws['!cols'] = [
@@ -2917,18 +3413,29 @@ async function buscarGrupo() {
   btnDescargar.disabled = true;
   
   try {
-    // Buscar en la tabla formularios, columna grupo
-    const data = await supabaseQuery('formularios');
+    // BUSCAR CON FILTRO EN EL SERVIDOR (filtrado antes de traer datos)
+    // Construir URL directamente para usar upper() en la consulta (case-insensitive exact match)
+    // Esto filtra en el servidor antes de traer los datos
+    const grupoBuscadoEncoded = encodeURIComponent(grupoBuscado);
+    const url = `${SUPABASE_URL}/rest/v1/formularios?grupo=ilike.${grupoBuscadoEncoded}`;
     
-    // Filtrar por el grupo buscado (comparación exacta en mayúsculas)
-    const registrosEncontrados = data.filter(item => {
+    const headers = {
+      'apikey': SUPABASE_KEY,
+      'Authorization': `Bearer ${SUPABASE_KEY}`,
+      'Content-Type': 'application/json'
+    };
+    
+    const registrosEncontrados = await fetchConReintentos(url, { headers });
+    
+    // Verificación adicional en el cliente para asegurar coincidencia exacta (por espacios, etc.)
+    const registrosFiltrados = registrosEncontrados.filter(item => {
       const grupo = item.grupo ? item.grupo.trim().toUpperCase() : '';
       return grupo === grupoBuscado;
     });
     
-    cantidadRegistrosEncontrados = registrosEncontrados.length;
+    cantidadRegistrosEncontrados = registrosFiltrados.length;
     
-    if (registrosEncontrados.length > 0) {
+    if (registrosFiltrados.length > 0) {
       // Grupo encontrado - quitar mensaje y mostrar solo el grupo seleccionado
       grupoSeleccionadoParaDescarga = grupoBuscado;
       resultadoBusqueda.style.display = 'none';
@@ -2983,10 +3490,14 @@ async function descargarPorGrupo() {
   btnDescarga.textContent = '⏳ Preparando descarga...';
   
   try {
-    // Cargar todos los datos
-    const data = await supabaseQuery('formularios', { order: 'fecha.asc' });
+    // OPTIMIZACIÓN: Filtrar en el servidor usando ilike para búsqueda case-insensitive
+    // Esto evita cargar todos los formularios y filtra directamente en Supabase
+    const data = await supabaseQuery('formularios', {
+      ilike: { field: 'grupo', value: grupoSeleccionadoParaDescarga },
+      order: 'fecha.asc'
+    });
     
-    // Filtrar formularios por grupo seleccionado (comparación exacta en mayúsculas)
+    // Verificación adicional en el cliente para asegurar coincidencia exacta (por espacios, etc.)
     const datosFinales = data.filter(item => {
       const grupo = item.grupo ? item.grupo.trim().toUpperCase() : '';
       return grupo === grupoSeleccionadoParaDescarga;
@@ -3033,7 +3544,7 @@ function generarExcelPorGrupo(datos, grupo) {
   
   const range = XLSX.utils.decode_range(ws['!ref']);
   
-  // Aplicar formato a documento como número
+  // Aplicar formato a documento como número (columna 0 en este caso)
   for (let row = 1; row <= range.e.r; row++) {
     const docCell = XLSX.utils.encode_cell({ r: row, c: 0 });
     if (ws[docCell] && row > 0) {
@@ -3065,13 +3576,8 @@ function generarExcelSimplificado(datos, nombreArchivo) {
   const datosExcel = datos.map(fila => {
     // Convertir fecha UTC a hora de Colombia
     const fechaColombia = convertirFechaAColombia(fila.fecha);
-    
-    const horas = String(fechaColombia.getHours()).padStart(2, '0');
-    const minutos = String(fechaColombia.getMinutes()).padStart(2, '0');
-    const horaFormateada = `${horas}:${minutos}`;
-    
-    // Convertir Date a número de serie de Excel
-    const serialDate = (fechaColombia - new Date(1899, 11, 30)) / (86400000);
+    const horaFormateada = formatearHora(fechaColombia);
+    const serialDate = convertirFechaASerialExcel(fechaColombia);
     return {
       'Fecha': serialDate,
       'Hora': horaFormateada,
@@ -3089,25 +3595,7 @@ function generarExcelSimplificado(datos, nombreArchivo) {
   const ws = XLSX.utils.json_to_sheet(datosExcel);
 
   const range = XLSX.utils.decode_range(ws['!ref']);
-  
-  // Aplicar formato de fecha DD/MM/YYYY a la columna Fecha
-  for (let row = 1; row <= range.e.r; row++) {
-    const fechaCell = XLSX.utils.encode_cell({ r: row, c: 0 }); // Columna Fecha
-    if (ws[fechaCell] && row > 0) {
-      ws[fechaCell].t = 'n'; // Tipo numérico (Excel maneja fechas como números)
-      ws[fechaCell].z = 'dd/mm/yyyy'; // Formato día/mes/año
-    }
-  }
-  
-  // Aplicar formato a documento como número
-  for (let row = 1; row <= range.e.r; row++) {
-    const docCell = XLSX.utils.encode_cell({ r: row, c: 2 }); // Columna Documento
-    if (ws[docCell] && row > 0) {
-      ws[docCell].t = 'n'; // Tipo numérico
-      ws[docCell].z = '0'; // Formato sin decimales
-    }
-  }
-
+  aplicarFormatoExcel(ws, range, 0, 2);
   ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
 
   ws['!cols'] = [
@@ -3125,13 +3613,8 @@ function generarExcelCompleto(datos, nombreArchivo) {
   const datosExcel = datos.map(fila => {
     // Convertir fecha UTC a hora de Colombia
     const fechaColombia = convertirFechaAColombia(fila.fecha);
-    
-    const horas = String(fechaColombia.getHours()).padStart(2, '0');
-    const minutos = String(fechaColombia.getMinutes()).padStart(2, '0');
-    const horaFormateada = `${horas}:${minutos}`;
-    
-    // Convertir Date a número de serie de Excel
-    const serialDate = (fechaColombia - new Date(1899, 11, 30)) / (86400000);
+    const horaFormateada = formatearHora(fechaColombia);
+    const serialDate = convertirFechaASerialExcel(fechaColombia);
     
     return {
       'Fecha': serialDate,
@@ -3166,25 +3649,7 @@ function generarExcelCompleto(datos, nombreArchivo) {
   const ws = XLSX.utils.json_to_sheet(datosExcel);
 
   const range = XLSX.utils.decode_range(ws['!ref']);
-  
-  // Aplicar formato de fecha DD/MM/YYYY a la columna Fecha
-  for (let row = 1; row <= range.e.r; row++) {
-    const fechaCell = XLSX.utils.encode_cell({ r: row, c: 0 }); // Columna Fecha
-    if (ws[fechaCell] && row > 0) {
-      ws[fechaCell].t = 'n'; // Tipo numérico (Excel maneja fechas como números)
-      ws[fechaCell].z = 'dd/mm/yyyy'; // Formato día/mes/año
-    }
-  }
-  
-  // Aplicar formato a documento como número
-  for (let row = 1; row <= range.e.r; row++) {
-    const docCell = XLSX.utils.encode_cell({ r: row, c: 2 }); // Columna Documento
-    if (ws[docCell] && row > 0) {
-      ws[docCell].t = 'n'; // Tipo numérico
-      ws[docCell].z = '0'; // Formato sin decimales
-    }
-  }
-
+  aplicarFormatoExcel(ws, range, 0, 2);
   ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
 
 ws['!cols'] = [
@@ -3207,13 +3672,8 @@ function generarExcelDocentes(datos, nombreArchivo) {
   const datosExcel = datos.map(fila => {
     // Convertir fecha UTC a hora de Colombia
     const fechaColombia = convertirFechaAColombia(fila.fecha);
-    
-    const horas = String(fechaColombia.getHours()).padStart(2, '0');
-    const minutos = String(fechaColombia.getMinutes()).padStart(2, '0');
-    const horaFormateada = `${horas}:${minutos}`;
-    
-    // Convertir Date a número de serie de Excel
-    const serialDate = (fechaColombia - new Date(1899, 11, 30)) / (86400000);
+    const horaFormateada = formatearHora(fechaColombia);
+    const serialDate = convertirFechaASerialExcel(fechaColombia);
     
     return {
       'Fecha': serialDate,
@@ -3233,25 +3693,7 @@ function generarExcelDocentes(datos, nombreArchivo) {
   const ws = XLSX.utils.json_to_sheet(datosExcel);
 
   const range = XLSX.utils.decode_range(ws['!ref']);
-  
-  // Aplicar formato de fecha DD/MM/YYYY a la columna Fecha
-  for (let row = 1; row <= range.e.r; row++) {
-    const fechaCell = XLSX.utils.encode_cell({ r: row, c: 0 }); // Columna Fecha
-    if (ws[fechaCell] && row > 0) {
-      ws[fechaCell].t = 'n'; // Tipo numérico (Excel maneja fechas como números)
-      ws[fechaCell].z = 'dd/mm/yyyy'; // Formato día/mes/año
-    }
-  }
-  
-  // Aplicar formato a documento como número
-  for (let row = 1; row <= range.e.r; row++) {
-    const docCell = XLSX.utils.encode_cell({ r: row, c: 2 }); // Columna Documento
-    if (ws[docCell] && row > 0) {
-      ws[docCell].t = 'n'; // Tipo numérico
-      ws[docCell].z = '0'; // Formato sin decimales
-    }
-  }
-
+  aplicarFormatoExcel(ws, range, 0, 2);
   ws['!autofilter'] = { ref: XLSX.utils.encode_range(range) };
 
   ws['!cols'] = [
@@ -3775,7 +4217,9 @@ function avanzarPagina() {
     document.getElementById('paginaFormulario1').classList.add('hidden');
     document.getElementById('paginaFormulario2').classList.remove('hidden');
     document.getElementById('btnEnviar').classList.remove('hidden');
-    document.getElementById('mensajeFormulario').innerHTML = '';
+    if (elementosDOM.mensajeFormulario) {
+      elementosDOM.mensajeFormulario.textContent = '';
+    }
     
     paginaFormularioActual = 2;
     
@@ -3792,7 +4236,9 @@ function retrocederPagina() {
     document.getElementById('paginaFormulario2').classList.add('hidden');
     document.getElementById('paginaFormulario1').classList.remove('hidden');
     document.getElementById('btnEnviar').classList.add('hidden');
-    document.getElementById('mensajeFormulario').innerHTML = '';
+    if (elementosDOM.mensajeFormulario) {
+      elementosDOM.mensajeFormulario.textContent = '';
+    }
     
     paginaFormularioActual = 1;
 
@@ -3804,17 +4250,28 @@ function retrocederPagina() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Inicializar caché DOM primero
+  inicializarCacheDOM();
+  
   const labels = document.querySelectorAll('label');
   
   labels.forEach(label => {
     if (label.textContent.includes('*')) {
-      label.innerHTML = label.innerHTML.replace(/\*/g, '<span style="color: #dc3545; font-weight: bold; font-size: 16px;">*</span>');
+      // Usar manipulación DOM directa en lugar de innerHTML
+      const asteriscos = label.querySelectorAll('span[style*="color: #dc3545"]');
+      if (asteriscos.length === 0) {
+        const span = document.createElement('span');
+        span.style.color = '#dc3545';
+        span.style.fontWeight = 'bold';
+        span.style.fontSize = '16px';
+        span.textContent = '*';
+        label.innerHTML = label.innerHTML.replace(/\*/g, span.outerHTML);
+      }
     }
   });
   
-  // Inicializar pantalla de bienvenida
-  const pantallaBienvenida = document.getElementById('pantallaBienvenida');
-  if (pantallaBienvenida && pantallaBienvenida.style.display !== 'none') {
+  // Inicializar pantalla de bienvenida usando caché DOM
+  if (elementosDOM.pantallaBienvenida && elementosDOM.pantallaBienvenida.style.display !== 'none') {
     document.body.classList.add('welcome-active');
   }
   
