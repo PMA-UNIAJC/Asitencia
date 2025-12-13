@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
   <title>PMA - Asistencia a Tutorías</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +11,7 @@
   <link rel="icon" type="image/png" href="https://hgppzklpukgslnrynvld.supabase.co/storage/v1/object/public/IMG/LOGO.png">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="welcome-active">
 
 <!-- Pantalla de Bienvenida -->
 <div id="pantallaBienvenida" class="welcome-screen">
@@ -80,13 +81,17 @@
             <label>Documento de Identidad *</label>
                         <input type="tel" id="regDocumento" required pattern="[0-9]*" inputmode="numeric" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off">
           </div>
+          <div class="form-group">
+            <label>Confirma tu documento de identidad *</label>
+            <input type="tel" id="regDocumentoConfirmar" required pattern="[0-9]*" inputmode="numeric" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off">
+          </div>
           <button type="submit" class="btn">Continuar</button>
           <button type="button" class="btn btn-secondary" onclick="confirmarCancelacion()">Cancelar</button>
         </form>
       </div>
 
       <!-- PASO 2: FORMULARIO COMPLETO (oculto inicialmente) -->
-      <form id="formRegistro" onsubmit="registrarEstudiante(event)" class="hidden" autocomplete="off">
+      <form id="formRegistro" onsubmit="manejarSubmitRegistro(event)" class="hidden" autocomplete="off">
        
         <div class="form-group">
           <label>Documento de Identidad *</label>
@@ -610,7 +615,7 @@
           <div class="form-group">
             <label>Buscar Grupo *</label>
             <div class="buscador-grupo-container">
-              <input type="text" id="buscadorGrupo" placeholder="Ingrese el grupo a buscar..." autocomplete="off" class="buscador-grupo-input" onkeypress="if(event.key === 'Enter') buscarGrupo()">
+              <input type="text" id="buscadorGrupo" placeholder="Ingrese el grupo a buscar..." autocomplete="off" class="buscador-grupo-input" onkeypress="if(event.key === 'Enter') { event.preventDefault(); buscarGrupo(); }">
               <button class="btn btn-buscar-grupo" onclick="buscarGrupo()" id="btnBuscarGrupo">Buscar</button>
             </div>
             <div id="resultadoBusquedaGrupo" class="resultado-busqueda-grupo">
