@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Formulario Activación Acompañamiento Académico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="welcome-active">
+
+<!-- Pantalla de Bienvenida -->
+<div id="pantallaBienvenida" class="welcome-screen">
+  <div class="welcome-left">
+    <div class="welcome-logo-section">
+      <div class="welcome-logo-main">
+        <img src="https://hgppzklpukgslnrynvld.supabase.co/storage/v1/object/public/IMG/LOGO%20BLANCO.png" alt="Logo UNIAJC" class="logo-image">
+      </div>
+    </div>
+    <div class="welcome-footer">
+      <p>VIGILADA MEN</p>
+    </div>
+  </div>
+  
+  <div class="welcome-right">
+    <div class="welcome-content">
+      <h1 class="welcome-title">Formulario de Activación<br>Acompañamiento Académico</h1>
+      <p class="welcome-subtitle">Formulario de Solicitud</p>
+      <div class="welcome-description">
+        <p>Este formulario tiene como objetivo recopilar información para la activación de la ruta de acompañamiento académico para estudiantes.</p>
+        <p>La información proporcionada será utilizada para gestionar y coordinar el proceso de acompañamiento académico de manera eficiente.</p>
+      </div>
+      <button class="welcome-btn" onclick="mostrarFormulario()">Empezar ahora</button>
+    </div>
+  </div>
+</div>
+
+<!-- Contenido del Formulario (oculto inicialmente) -->
+<div id="contenidoFormulario" class="hidden">
+  <div class="header-container">
+    <h1 class="header-title">
+      FORMULARIO ACTIVACIÓN ACOMPAÑAMIENTO ACADÉMICO
+    </h1>
+  </div>
+
+  <div class="container">
+  <div id="pantallaFormulario">
+    <h2 class="section-title">Formulario de Solicitud</h2>
+    
+    <div id="mensajeFormulario"></div>
+    
+    <form id="formAcompanamiento" onsubmit="enviarFormulario(event)">
+      
+      <!-- TIPO DE ACOMPAÑAMIENTO -->
+      <div class="form-group">
+        <label>Tipo de acompañamiento <span class="required-asterisk">*</span></label>
+        <select id="tipoAcompanamiento" required onchange="manejarTipoAcompanamiento()">
+          <option value="">Seleccione un tipo</option>
+          <option value="Individual">Individual</option>
+          <option value="Grupal">Grupal</option>
+        </select>
+      </div>
+
+      <!-- CAMPOS PARA INDIVIDUAL -->
+      <div id="camposIndividual" class="hidden">
+        
+        <h3 class="section-subtitle">Datos del Estudiante</h3>
+        
+        <!-- NÚMERO DE DOCUMENTO -->
+        <div class="form-group">
+          <label>Número de documento de identidad <span class="required-asterisk">*</span></label>
+          <input 
+            type="tel" 
+            id="documento" 
+            required 
+            pattern="[0-9]*" 
+            inputmode="numeric" 
+            minlength="7" 
+            maxlength="12"
+            oninput="this.value = this.value.replace(/[^0-9]/g, ''); validarDocumento(this)"
+            onblur="validarDocumento(this)"
+            autocomplete="off">
+          <span class="error-message" id="errorDocumento"></span>
+        </div>
+
+        <!-- NOMBRES Y APELLIDOS -->
+        <div class="form-group">
+          <label>Nombres y apellidos del estudiante <span class="required-asterisk">*</span></label>
+          <input 
+            type="text" 
+            id="nombresApellidos" 
+            required 
+            oninput="this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '')"
+            onblur="limpiarEspacios(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- GRUPO -->
+        <div class="form-group">
+          <label>Grupo al que pertenece el estudiante <span class="required-asterisk">*</span></label>
+          <input 
+            type="text" 
+            id="grupo" 
+            required 
+            oninput="this.value = this.value.replace(/[^A-Za-z0-9\-]/g, '')"
+            onblur="limpiarEspacios(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- SEDE ACADÉMICA -->
+        <div class="form-group">
+          <label>Sede académica de la solicitud <span class="required-asterisk">*</span></label>
+          <select id="sede" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- FACULTAD -->
+        <div class="form-group">
+          <label>Facultad a la cual pertenece el estudiante <span class="required-asterisk">*</span></label>
+          <select id="facultad" required onchange="actualizarProgramas('facultad', 'programa')">
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- PROGRAMA ACADÉMICO -->
+        <div class="form-group">
+          <label>Programa académico al cual pertenece el estudiante <span class="required-asterisk">*</span></label>
+          <select id="programa" required disabled>
+            <!-- Opciones generadas dinámicamente según facultad -->
+          </select>
+        </div>
+
+        <!-- SEMESTRE -->
+        <div class="form-group">
+          <label>Semestre <span class="required-asterisk">*</span></label>
+          <select id="semestre" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- ¿EL ESTUDIANTE ES CONSCIENTE? -->
+        <div class="form-group">
+          <label>¿El estudiante es consciente del acompañamiento académico? <span class="required-asterisk">*</span></label>
+          <select id="estudianteConsciente" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+          <p class="sugerencia-texto">Sugerencia: Por favor, una vez realizada la activación de la ruta de acompañamiento académico en caso de que el estudiante y/o grupo NO esté enterado, es importante de socializar el procedimiento respectivo.</p>
+        </div>
+
+        <h3 class="section-subtitle">Datos del Docente/Director</h3>
+
+        <!-- NOMBRE DEL PROFESOR/DIRECTOR/PROGRAMA -->
+        <div class="form-group">
+          <label>Nombre del profesor, director y/o programa que solicita <span class="required-asterisk">*</span></label>
+          <input 
+            type="text" 
+            id="nombreSolicitante" 
+            required 
+            oninput="this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '')"
+            onblur="limpiarEspacios(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- CARGO -->
+        <div class="form-group">
+          <label>Cargo desempeñado en la institución <span class="required-asterisk">*</span></label>
+          <select id="cargo" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- DEPENDENCIA -->
+        <div class="form-group">
+          <label>Dependencia a la que pertenece el profesor, director, funcionario que solicita <span class="required-asterisk">*</span></label>
+          <select id="dependencia" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- CORREO INSTITUCIONAL -->
+        <div class="form-group">
+          <label>Correo Institucional del profesor, director, funcionario que solicita <span class="required-asterisk">*</span></label>
+          <div class="email-container">
+            <input 
+              type="text" 
+              id="correo" 
+              required 
+              autocomplete="off"
+              oninput="this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, ''); actualizarCorreoCompleto()"
+              onblur="limpiarEspacios(this)"
+              class="email-input">
+            <span class="email-separator">@</span>
+            <select id="dominioCorreo" class="email-domain" required>
+              <!-- Opciones generadas dinámicamente -->
+            </select>
+          </div>
+          <input type="hidden" id="correoCompleto">
+        </div>
+
+        <!-- ASIGNATURA -->
+        <div class="form-group">
+          <label>Asignatura del acompañamiento académico <span class="required-asterisk">*</span></label>
+          <div class="checkbox-group" id="asignaturasContainer">
+            <!-- Los checkboxes se generan dinámicamente -->
+          </div>
+          <div class="otro-asignatura-container hidden" id="otroAsignaturaContainer">
+            <input 
+              type="text" 
+              id="otroAsignatura" 
+              placeholder="Especifique otra asignatura"
+              oninput="this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.\-]/g, '')"
+              onblur="limpiarEspacios(this)"
+              autocomplete="off">
+          </div>
+        </div>
+
+        <!-- MOTIVOS -->
+        <div class="form-group hidden" id="motivosContainer">
+          <label>Motivos del acompañamiento académico <span class="required-asterisk">*</span></label>
+          <div class="checkbox-group" id="motivosCheckboxes">
+            <!-- Los motivos se generan dinámicamente según las asignaturas seleccionadas -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CAMPOS PARA GRUPAL -->
+      <div id="camposGrupal" class="hidden">
+        
+        <h3 class="section-subtitle">Datos del Grupo</h3>
+        
+        <!-- GRUPO -->
+        <div class="form-group">
+          <label>Grupo al que se debe realizar el acompañamiento <span class="required-asterisk">*</span></label>
+          <input 
+            type="text" 
+            id="grupoGrupal" 
+            required 
+            oninput="this.value = this.value.replace(/[^A-Za-z0-9\-]/g, '')"
+            onblur="limpiarEspacios(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- NOMBRES Y APELLIDOS DEL VOCERO -->
+        <div class="form-group">
+          <label>Nombres y apellidos del vocero del grupo <span class="required-asterisk">*</span></label>
+          <input 
+            type="text" 
+            id="nombresApellidosVocero" 
+            required 
+            oninput="this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '')"
+            onblur="limpiarEspacios(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- NÚMERO DE CONTACTO DEL VOCERO -->
+        <div class="form-group">
+          <label>Número de contacto del vocero del grupo <span class="required-asterisk">*</span></label>
+          <input 
+            type="tel" 
+            id="contactoVocero" 
+            required 
+            pattern="[0-9]*" 
+            inputmode="numeric" 
+            minlength="10" 
+            maxlength="10"
+            oninput="this.value = this.value.replace(/[^0-9]/g, ''); validarContacto(this)"
+            onblur="validarContacto(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- CORREO DEL VOCERO -->
+        <div class="form-group">
+          <label>Correo del vocero del grupo <span class="required-asterisk">*</span></label>
+          <div class="email-container">
+            <input 
+              type="text" 
+              id="correoVocero" 
+              required 
+              autocomplete="off"
+              oninput="this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, ''); actualizarCorreoVoceroCompleto()"
+              onblur="limpiarEspacios(this)"
+              class="email-input">
+            <span class="email-separator">@</span>
+            <select id="dominioCorreoVocero" class="email-domain" required>
+              <!-- Opciones generadas dinámicamente -->
+            </select>
+          </div>
+          <input type="hidden" id="correoVoceroCompleto">
+        </div>
+
+        <!-- SEDE ACADÉMICA -->
+        <div class="form-group">
+          <label>Sede académica de la solicitud <span class="required-asterisk">*</span></label>
+          <select id="sedeGrupal" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- FACULTAD -->
+        <div class="form-group">
+          <label>Facultad a la cual pertenece el grupo <span class="required-asterisk">*</span></label>
+          <select id="facultadGrupal" required onchange="actualizarProgramas('facultadGrupal', 'programaGrupal')">
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- PROGRAMA ACADÉMICO -->
+        <div class="form-group">
+          <label>Programa académico al cual pertenece el grupo <span class="required-asterisk">*</span></label>
+          <select id="programaGrupal" required disabled>
+            <!-- Opciones generadas dinámicamente según facultad -->
+          </select>
+        </div>
+
+        <!-- SEMESTRE -->
+        <div class="form-group">
+          <label>Semestre <span class="required-asterisk">*</span></label>
+          <select id="semestreGrupal" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- ¿EL GRUPO ES CONSCIENTE? -->
+        <div class="form-group">
+          <label>¿El grupo es consciente del acompañamiento académico? <span class="required-asterisk">*</span></label>
+          <select id="grupoConsciente" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+          <p class="sugerencia-texto">Sugerencia: Por favor, una vez realizada la activación de la ruta de acompañamiento académico en caso de que el estudiante y/o grupo NO esté enterado, es importante de socializar el procedimiento respectivo.</p>
+        </div>
+
+        <h3 class="section-subtitle">Datos del Docente/Director</h3>
+
+        <!-- NOMBRE DEL PROFESOR/DIRECTOR/PROGRAMA -->
+        <div class="form-group">
+          <label>Nombre del profesor, director y/o programa que solicita <span class="required-asterisk">*</span></label>
+          <input 
+            type="text" 
+            id="nombreSolicitanteGrupal" 
+            required 
+            oninput="this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ\s]/g, '')"
+            onblur="limpiarEspacios(this)"
+            autocomplete="off">
+        </div>
+
+        <!-- CARGO -->
+        <div class="form-group">
+          <label>Cargo desempeñado en la institución <span class="required-asterisk">*</span></label>
+          <select id="cargoGrupal" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- DEPENDENCIA -->
+        <div class="form-group">
+          <label>Dependencia a la que pertenece el profesor, director, funcionario que solicita <span class="required-asterisk">*</span></label>
+          <select id="dependenciaGrupal" required>
+            <!-- Opciones generadas dinámicamente -->
+          </select>
+        </div>
+
+        <!-- CORREO INSTITUCIONAL -->
+        <div class="form-group">
+          <label>Correo Institucional del profesor, director, funcionario que solicita <span class="required-asterisk">*</span></label>
+          <div class="email-container">
+            <input 
+              type="text" 
+              id="correoGrupal" 
+              required 
+              autocomplete="off"
+              oninput="this.value = this.value.replace(/[^a-zA-Z0-9._-]/g, ''); actualizarCorreoGrupalCompleto()"
+              onblur="limpiarEspacios(this)"
+              class="email-input">
+            <span class="email-separator">@</span>
+            <select id="dominioCorreoGrupal" class="email-domain" required>
+              <!-- Opciones generadas dinámicamente -->
+            </select>
+          </div>
+          <input type="hidden" id="correoGrupalCompleto">
+        </div>
+
+        <!-- ASIGNATURA -->
+        <div class="form-group">
+          <label>Asignatura del acompañamiento académico <span class="required-asterisk">*</span></label>
+          <div class="checkbox-group" id="asignaturasContainerGrupal">
+            <!-- Los checkboxes se generan dinámicamente -->
+          </div>
+          <div class="otro-asignatura-container hidden" id="otroAsignaturaContainerGrupal">
+            <input 
+              type="text" 
+              id="otroAsignaturaGrupal" 
+              placeholder="Especifique otra asignatura"
+              oninput="this.value = this.value.replace(/[^A-Za-zÁÉÍÓÚáéíóúÑñ0-9 ,.\-]/g, '')"
+              onblur="limpiarEspacios(this)"
+              autocomplete="off">
+          </div>
+        </div>
+
+        <!-- MOTIVOS -->
+        <div class="form-group hidden" id="motivosContainerGrupal">
+          <label>Motivos del acompañamiento académico <span class="required-asterisk">*</span></label>
+          <div class="checkbox-group" id="motivosCheckboxesGrupal">
+            <!-- Los motivos se generan dinámicamente según las asignaturas seleccionadas -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- BOTONES -->
+      <button type="submit" class="btn" id="btnEnviar">Enviar Formulario</button>
+      <button type="button" class="btn btn-cancelar" id="btnCancelar" onclick="mostrarConfirmacionCancelar()">Cancelar</button>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- Modal de éxito -->
+<div id="modalExito" class="modal-overlay hidden">
+  <div class="modal-success">
+    <div class="success-icon">
+      <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+    </div>
+    <h2>¡Formulario Enviado!</h2>
+    <p>Gracias por completar el formulario</p>
+    <p class="small-text">Redirigiendo...</p>
+  </div>
+</div>
+
+<!-- Modal de confirmación para cancelar -->
+<div id="modalCancelar" class="modal-overlay hidden">
+  <div class="modal-confirm">
+    <h2>¿Seguro que quieres cancelar?</h2>
+    <p>Se perderán todos los datos ingresados en el formulario</p>
+    <div class="modal-buttons">
+      <button class="btn btn-confirm-si" onclick="confirmarCancelar()">Sí</button>
+      <button class="btn btn-confirm-no" onclick="cerrarModalCancelar()">No</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
