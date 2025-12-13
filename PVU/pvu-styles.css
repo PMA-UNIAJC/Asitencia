@@ -13,14 +13,13 @@
 .welcome-screen {
   min-height: 100vh;
   display: flex;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
   background: transparent;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: visible;
 }
 
 .welcome-left {
@@ -31,7 +30,8 @@
   justify-content: space-between;
   padding: 60px 50px;
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* Cambiar de hidden a visible para permitir scroll */
+  min-height: 100%; /* Asegurar que ocupe al menos el 100% de la altura */
 }
 
 .welcome-left::before {
@@ -104,14 +104,19 @@
   flex: 0 0 35%;
   background: linear-gradient(135deg, #e8f0f8 0%, #f5f8fc 100%);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   padding: 60px 40px;
+  overflow-y: visible; /* Cambiar de auto a visible para que el scroll sea del contenedor padre */
+  overflow-x: hidden;
+  min-height: 100%; /* Asegurar que ocupe al menos el 100% de la altura */
 }
 
 .welcome-content {
   max-width: 100%;
   width: 100%;
+  overflow-y: visible; /* Permitir que el scroll sea del contenedor padre */
+  padding-right: 10px;
 }
 
 .welcome-title {
@@ -211,6 +216,7 @@
 @media (max-width: 968px) {
   .welcome-screen {
     flex-direction: column;
+    position: absolute;
   }
   
   .welcome-left {
@@ -364,9 +370,15 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  overflow-y: auto; /* Permitir scroll vertical siempre */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #0a1628 0%, #1a2f5a 20%, #2a4d8f 50%, #1a2f5a 80%, #0a1628 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  transition: padding 0s; /* Sin transición en padding para evitar movimiento */
 }
 
 /* Fondo fijo con múltiples capas de texturas */
@@ -432,12 +444,50 @@ body::after {
 }
 
 
-/* Contenedor principal con padding para el scroll */
-body {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  padding-bottom: 50px;
+
+/* Cuando la pantalla de bienvenida está visible, ajustar el body */
+body.welcome-active {
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto !important; /* Scroll del body para toda la página */
+  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
+  height: auto;
+  min-height: 100vh;
+  transition: padding 0s; /* Sin transición en padding para evitar movimiento */
+  position: relative; /* Permitir que el contenido determine la altura */
+}
+
+/* Asegurar scroll en todos los dispositivos */
+@media (max-width: 968px) {
+  body.welcome-active {
+    overflow-y: auto !important;
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .welcome-screen {
+    position: absolute;
+    min-height: 100vh;
+    overflow: visible;
+  }
+}
+
+/* Asegurar scroll en desktop también */
+@media (min-width: 969px) {
+  body.welcome-active {
+    overflow-y: auto !important;
+    position: relative;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .welcome-screen {
+    position: absolute;
+    overflow: visible;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1318,4 +1368,3 @@ textarea {
     min-height: 44px;
   }
 }
-
