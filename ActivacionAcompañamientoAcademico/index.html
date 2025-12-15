@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://hgppzklpukgslnrynvld.supabase.co/storage/v1/object/public/IMG/LOGO.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body class="welcome-active">
@@ -26,7 +27,7 @@
   
   <div class="welcome-right">
     <div class="welcome-content">
-      <h1 class="welcome-title">Formulario de Activación<br>Acompañamiento Académico</h1>
+      <h1 class="welcome-title">Activación<br>Acompañamiento Académico</h1>
       <p class="welcome-subtitle">Formulario de Solicitud</p>
       <div class="welcome-description">
         <p>Este formulario tiene como objetivo recopilar información para la activación de la ruta de acompañamiento académico para estudiantes.</p>
@@ -39,15 +40,9 @@
 
 <!-- Contenido del Formulario (oculto inicialmente) -->
 <div id="contenidoFormulario" class="hidden">
-  <div class="header-container">
-    <h1 class="header-title">
-      FORMULARIO ACTIVACIÓN ACOMPAÑAMIENTO ACADÉMICO
-    </h1>
-  </div>
-
   <div class="container">
   <div id="pantallaFormulario">
-    <h2 class="section-title">Formulario de Solicitud</h2>
+    <h2 class="section-title">Activación Acompañamiento Académico</h2>
     
     <div id="mensajeFormulario"></div>
     
@@ -412,7 +407,7 @@
 
       <!-- BOTONES -->
       <button type="submit" class="btn" id="btnEnviar">Enviar Formulario</button>
-      <button type="button" class="btn btn-cancelar" id="btnCancelar" onclick="mostrarConfirmacionCancelar()">Cancelar</button>
+      <button type="button" class="btn btn-secondary" id="btnCancelar" onclick="mostrarConfirmacionCancelar()">Cancelar</button>
     </form>
   </div>
 </div>
@@ -430,14 +425,14 @@
   </div>
 </div>
 
-<!-- Modal de confirmación para cancelar -->
-<div id="modalCancelar" class="modal-overlay hidden">
-  <div class="modal-confirm">
-    <h2>¿Seguro que quieres cancelar?</h2>
-    <p>Se perderán todos los datos ingresados en el formulario</p>
+<!-- Modal de confirmación de cancelación -->
+<div id="modalConfirmacion" class="modal-overlay hidden">
+  <div class="modal-confirmacion">
+    <h2 id="tituloConfirmacion">¿Seguro que deseas cancelar?</h2>
+    <p id="mensajeConfirmacion">Se perderán todos los datos del formulario que has ingresado.</p>
     <div class="modal-buttons">
-      <button class="btn btn-confirm-si" onclick="confirmarCancelar()">Sí</button>
-      <button class="btn btn-confirm-no" onclick="cerrarModalCancelar()">No</button>
+      <button class="btn" id="btnConfirmarModal">Sí, estoy seguro</button>
+      <button class="btn btn-secondary" id="btnCancelarModal">No, volver</button>
     </div>
   </div>
 </div>
@@ -445,3 +440,4 @@
 <script src="script.js"></script>
 </body>
 </html>
+

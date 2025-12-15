@@ -1305,7 +1305,6 @@ async function iniciarSesion(event) {
       elementosDOM.mensajeFormulario.textContent = '';
     }
     actualizarBotonCerrarSesion();
-    actualizarProgreso(1);
 
   } catch (error) {
     mostrarMensaje('mensajeLogin', 'Error de conexión: ' + error.message, 'error');
@@ -1446,12 +1445,9 @@ async function cargarInstructores() {
       textKey: 'nombre',
       primeraOpcion: 'Seleccione un tutor'
     });
-    
-    actualizarProgreso(2);
   } else if (tipo === 'Profesor') {
     grupoFacultad.classList.remove('hidden');
     selectFacultad.setAttribute('required', 'required');
-    actualizarProgreso(2);
   }
 }
 
@@ -1585,8 +1581,6 @@ async function cargarMaterias() {
       style: { fontWeight: 'bold' }
     }
   });
-  
-  actualizarProgreso(3);
 }
 
 // ===================================
@@ -1633,7 +1627,6 @@ async function cargarTemas() {
     
     formularioEnviandose = true;
     actualizarBotonCerrarSesion();
-    actualizarProgreso(4);
     return;
   } else {
     containerAsignatura.classList.add('hidden');
@@ -1686,7 +1679,6 @@ async function cargarTemas() {
   
   formularioEnviandose = true;
   actualizarBotonCerrarSesion();
-  actualizarProgreso(4);
 }
 
 function toggleOtroTema() {
@@ -1711,8 +1703,6 @@ document.addEventListener('DOMContentLoaded', function() {
   recomendacionesPma.forEach(radio => {
     radio.addEventListener('change', function() {
       if (this.checked) {
-        document.getElementById('step4').classList.add('completed');
-        document.getElementById('step4').classList.remove('active');
       }
     });
   });
@@ -1747,7 +1737,7 @@ function actualizarBotonCerrarSesion() {
 
 function confirmarCancelacion() {
   mostrarModalConfirmacion(
-    '¿Estás seguro que deseas cancelar?',
+    '¿Seguro que deseas cancelar?',
     'Se perderán todos los datos del formulario que has ingresado.',
     function() {
       cerrarSesion();
@@ -2180,7 +2170,6 @@ async function actualizarDatosEstudiante(event) {
       elementosDOM.mensajeFormulario.textContent = '';
     }
     actualizarBotonCerrarSesion();
-    actualizarProgreso(1);
     
   } catch (error) {
     console.error('❌ Error:', error);
@@ -2207,15 +2196,6 @@ function cerrarSesion() {
   document.getElementById('paginaFormulario1').classList.remove('hidden');
   document.getElementById('paginaFormulario2').classList.add('hidden');
   document.getElementById('btnEnviar').classList.add('hidden');
-  
-  document.querySelectorAll('.progress-step').forEach(step => {
-    step.classList.remove('active', 'completed');
-  });
-  
-  const primerPaso = document.getElementById('step1');
-  if (primerPaso) {
-    primerPaso.classList.add('active');
-  }
   
   // Recargar la página para limpiar todo
   setTimeout(() => {
@@ -3721,20 +3701,6 @@ function cerrarSesionAdmin() {
   volverInicio();
 }
 
-// ===================================
-// ACTUALIZAR INDICADOR DE PROGRESO
-// ===================================
-function actualizarProgreso(paso) {
-  document.querySelectorAll('.progress-step').forEach(step => {
-    step.classList.remove('active');
-  });
-  
-  for (let i = 1; i < paso; i++) {
-    document.getElementById(`step${i}`).classList.add('completed');
-  }
-  
-  document.getElementById(`step${paso}`).classList.add('active');
-}
 
 // ===================================
 // TOGGLE INSTRUCTORES POR SEDE EN ADMIN
@@ -4148,9 +4114,21 @@ function validarPagina1() {
   const asignatura = document.getElementById('asignatura').value;
   const motivoConsulta = document.getElementById('motivoConsulta').value;
 
-  // Validar campos básicos
-  if (!tipoAcompanamiento || !sedeTutoria || !tipoInstructor || !instructor || !asignatura || !motivoConsulta) {
-    return { valido: false, mensaje: 'Por favor complete todos los campos obligatorios de esta sección' };
+  // Validar campos básicos con mensajes específicos
+  if (!tipoAcompanamiento) {
+    return { valido: false, mensaje: 'Por favor seleccione un tipo de acompañamiento' };
+  }
+  if (!sedeTutoria) {
+    return { valido: false, mensaje: 'Por favor seleccione una sede' };
+  }
+  if (!tipoInstructor) {
+    return { valido: false, mensaje: 'Por favor seleccione un tipo de instructor' };
+  }
+  if (!instructor) {
+    return { valido: false, mensaje: 'Por favor seleccione un instructor' };
+  }
+  if (!asignatura) {
+    return { valido: false, mensaje: 'Por favor seleccione una asignatura' };
   }
 
   // Validar título del curso si es necesario
@@ -4177,7 +4155,7 @@ function validarPagina1() {
     }
   }
 
-  // Validar tema
+  // Validar tema (ANTES del motivo de consulta)
   const selectTema = document.getElementById('tema');
   const inputTema = document.getElementById('otroTema');
   
@@ -4198,6 +4176,11 @@ function validarPagina1() {
         return { valido: false, mensaje: 'Por favor especifique el tema' };
       }
     }
+  }
+
+  // Validar motivo de consulta (DESPUÉS del tema)
+  if (!motivoConsulta) {
+    return { valido: false, mensaje: 'Por favor seleccione un motivo de consulta' };
   }
 
   return { valido: true };
@@ -4225,8 +4208,6 @@ function avanzarPagina() {
     
 
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    actualizarProgreso(4);
   }
 }
 
@@ -4244,8 +4225,6 @@ function retrocederPagina() {
 
     
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
-    actualizarProgreso(3);
   }
 }
 

@@ -1420,19 +1420,23 @@ function regresarABienvenida() {
 
 // Función para mostrar modal de confirmación de cancelar
 function mostrarConfirmacionCancelar() {
-  const modal = document.getElementById('modalCancelar');
+  const modal = document.getElementById('modalConfirmacion');
+  document.getElementById('tituloConfirmacion').textContent = '¿Seguro que deseas cancelar?';
+  document.getElementById('mensajeConfirmacion').textContent = 'Se perderán todos los datos del formulario que has ingresado.';
+  
+  modal.style.display = 'flex';
   modal.classList.remove('hidden');
-}
-
-// Función para cerrar modal de cancelar
-function cerrarModalCancelar() {
-  const modal = document.getElementById('modalCancelar');
-  modal.classList.add('hidden');
-}
-
-// Función para confirmar cancelar
-function confirmarCancelar() {
-  window.location.reload();
+  
+  document.getElementById('btnConfirmarModal').onclick = function() {
+    modal.style.display = 'none';
+    modal.classList.add('hidden');
+    window.location.reload();
+  };
+  
+  document.getElementById('btnCancelarModal').onclick = function() {
+    modal.style.display = 'none';
+    modal.classList.add('hidden');
+  };
 }
 
 // Inicialización

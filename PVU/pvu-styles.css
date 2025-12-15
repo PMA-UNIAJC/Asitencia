@@ -124,8 +124,14 @@
   font-size: 28px;
   font-weight: 700;
   line-height: 1.3;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-family: 'Poppins', sans-serif;
+}
+
+.welcome-title br {
+  display: block;
+  content: "";
+  margin-top: 0.3em;
 }
 
 .welcome-subtitle {
@@ -137,15 +143,15 @@
 }
 
 .welcome-description {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .welcome-description p {
-  color: #1a2f5a;
+  line-height: 1.7;
+  color: #555;
   font-size: 15px;
-  line-height: 1.6;
+  text-align: justify;
   margin-bottom: 15px;
-  font-family: 'Poppins', sans-serif;
 }
 
 .welcome-description p:last-child {
@@ -281,7 +287,7 @@
   
   .welcome-title {
     font-size: 20px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
   }
   
   .welcome-subtitle {
@@ -295,7 +301,7 @@
   
   .welcome-description p {
     font-size: 13px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
   }
   
   .welcome-btn {
@@ -340,8 +346,8 @@
   
   .welcome-title {
     font-size: 18px;
+    margin-bottom: 12px;
     line-height: 1.4;
-    margin-bottom: 10px;
   }
   
   .welcome-subtitle {
@@ -355,8 +361,7 @@
   
   .welcome-description p {
     font-size: 12px;
-    line-height: 1.5;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
   
   .welcome-btn {
@@ -366,7 +371,7 @@
 }
 
 body {
-  font-family: 'Poppins', 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
@@ -505,53 +510,6 @@ body.welcome-active {
 }
 
 /* ===================================
-   HEADER
-   =================================== */
-.header-container {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  position: relative;
-  z-index: 1;
-  padding: 0 15px;
-}
-
-.header-title {
-  color: white;
-  margin: 0;
-  padding: 0;
-  font-size: 1.6em;
-  line-height: 1.2;
-  font-weight: 600;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  letter-spacing: 0.5px;
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
-}
-
-@media (max-width: 768px) {
-  .header-container {
-    margin-top: 15px;
-    margin-bottom: 30px;
-  }
-  
-  .header-title {
-    font-size: 1.4em;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-container {
-    margin-top: 10px;
-    margin-bottom: 25px;
-  }
-  
-  .header-title {
-    font-size: 1.2em;
-    letter-spacing: 0.3px;
-  }
-}
-
-/* ===================================
    CONTAINER PRINCIPAL
    =================================== */
 .container {
@@ -560,7 +518,7 @@ body.welcome-active {
   box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.08);
   max-width: 700px;
   width: 100%;
-  margin: 0 auto;
+  margin: 80px auto 80px auto;
   padding: 30px 25px;
   animation: fadeIn 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -603,7 +561,7 @@ body.welcome-active {
    FORMULARIOS
    =================================== */
 .form-group {
-  margin-bottom: 45px;
+  margin-bottom: 18px;
 }
 
 /* Asterisco rojo para campos obligatorios */
@@ -632,7 +590,6 @@ textarea {
   border: 1.5px solid #d0d7de;
   border-radius: 6px;
   font-size: 14px;
-  font-weight: 400;
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   font-family: inherit;
   background: #ffffff;
@@ -658,6 +615,13 @@ textarea {
   min-height: 100px;
   font-family: inherit;
   line-height: 1.5;
+}
+
+/* ===================================
+   MAYOR SEPARACIÓN ENTRE PREGUNTAS
+   =================================== */
+.form-group {
+  margin-bottom: 32px !important; /* Aumentado de 18px a 32px */
 }
 
 /* ===================================
@@ -790,16 +754,19 @@ textarea {
   transform: none;
 }
 
-/* Botón cancelar */
-.btn-cancelar {
-  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
-  margin-top: 15px;
-  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.25);
+.btn-secondary {
+  background: white;
+  color: #1e3c72;
+  border: 2px solid #1e3c72;
+  box-shadow: 0 2px 8px rgba(30, 60, 114, 0.15);
 }
 
-.btn-cancelar:hover {
-  background: linear-gradient(135deg, #5a6268 0%, #495057 100%);
-  box-shadow: 0 6px 16px rgba(108, 117, 125, 0.35);
+.btn-secondary:hover {
+  background: #f8f9fa;
+  border-color: #2a5298;
+  color: #2a5298;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
+  transform: translateY(-1px);
 }
 
 /* ===================================
@@ -944,69 +911,40 @@ textarea {
 /* ===================================
    MODAL DE CONFIRMACIÓN
    =================================== */
-.modal-confirm {
+.modal-confirmacion {
   background: white;
-  padding: 30px;
-  border-radius: 8px;
+  padding: 40px 35px;
+  border-radius: 16px;
   text-align: center;
-  max-width: 400px;
+  max-width: 450px;
   width: 90%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  animation: slideUp 0.4s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.confirm-icon {
-  display: none;
-}
-
-.modal-confirm h2 {
-  color: #333;
-  font-size: 20px;
+.modal-confirmacion h2 {
+  color: #1e3c72;
+  font-size: 24px;
   margin-bottom: 15px;
   font-weight: 600;
 }
 
-.modal-confirm p {
-  color: #666;
-  font-size: 14px;
+.modal-confirmacion p {
+  color: #555;
+  font-size: 15px;
   margin-bottom: 25px;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 .modal-buttons {
   display: flex;
   gap: 10px;
-  justify-content: center;
+  flex-direction: column;
 }
 
-.btn-confirm-si,
-.btn-confirm-no {
-  flex: 1;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 500;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
+.modal-buttons .btn {
   margin-top: 0;
-}
-
-.btn-confirm-si {
-  background: #dc3545;
-  color: white;
-}
-
-.btn-confirm-si:hover {
-  opacity: 0.9;
-}
-
-.btn-confirm-no {
-  background: #6c757d;
-  color: white;
-}
-
-.btn-confirm-no:hover {
-  opacity: 0.9;
 }
 
 /* ===================================
@@ -1016,6 +954,7 @@ textarea {
   .container {
     max-width: 90%;
     padding: 28px 22px;
+    margin: 70px auto 70px auto;
   }
 }
 
@@ -1024,6 +963,7 @@ textarea {
     padding: 20px 15px;
     max-width: 95%;
     border-radius: 10px;
+    margin: 60px auto 60px auto;
   }
 
   .section-title {
@@ -1033,12 +973,12 @@ textarea {
   }
 
   .form-group {
-    margin-bottom: 35px;
+    margin-bottom: 15px;
   }
 
   label {
     font-size: 13px;
-    margin-bottom: 7px;
+    margin-bottom: 5px;
   }
 
   input[type="text"],
@@ -1094,34 +1034,37 @@ textarea {
 /* ===================================
    RESPONSIVE - MÓVILES
    =================================== */
-@media (max-width: 640px) {
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+
   .container {
-    padding: 18px 12px;
-    max-width: 96%;
-    border-radius: 8px;
+    padding: 15px 10px;
+    max-width: 98%;
+    margin: 50px auto 50px auto;
   }
-  
+
   .section-title {
-    font-size: 17px;
-    margin-bottom: 15px;
+    font-size: 16px;
+    margin-bottom: 12px;
   }
-  
+
   .form-group {
-    margin-bottom: 32px;
+    margin-bottom: 12px;
   }
 
-  .email-container {
-    gap: 6px;
+  label {
+    font-size: 12px;
   }
 
-  .email-separator {
-    font-size: 15px;
-  }
-
-  .email-input,
-  .email-domain {
-    font-size: 11px !important;
-    font-weight: 300 !important;
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
+    padding: 8px;
+    font-size: 16px !important; /* Mantener 16px para evitar zoom */
   }
 
   .email-domain {
@@ -1135,6 +1078,7 @@ textarea {
     max-width: 98%;
     border-radius: 8px;
     box-shadow: 0 6px 24px rgba(0,0,0,0.1), 0 2px 6px rgba(0,0,0,0.06);
+    margin: 50px auto 50px auto;
   }
 
   .section-title {
@@ -1149,13 +1093,11 @@ textarea {
   }
 
   .form-group {
-    margin-bottom: 30px;
+    margin-bottom: 12px;
   }
 
   label {
     font-size: 12px;
-    margin-bottom: 6px;
-    line-height: 1.4;
   }
 
   input[type="text"],
@@ -1163,7 +1105,8 @@ textarea {
   input[type="tel"],
   select,
   textarea {
-    padding: 10px;
+    padding: 8px;
+    font-size: 16px !important; /* Mantener 16px para evitar zoom */
     font-size: 13px !important;
     font-weight: 300 !important;
     border-radius: 5px;
@@ -1256,36 +1199,24 @@ textarea {
     margin-top: 15px;
   }
   
-  .modal-confirm {
-    padding: 25px 20px;
-    max-width: 95%;
+  .modal-confirmacion {
+    padding: 30px 20px;
+    width: 95%;
   }
   
-  .modal-confirm h2 {
+  .modal-confirmacion h2 {
     font-size: 18px;
-    margin-bottom: 12px;
   }
-  
-  .modal-confirm p {
-    font-size: 13px;
-    margin-bottom: 20px;
-  }
-  
-  .modal-buttons {
-    flex-direction: column;
-    gap: 8px;
-  }
-  
-  .btn-confirm-si,
-  .btn-confirm-no {
-    width: 100%;
-    padding: 12px;
+
+  .modal-confirmacion p {
+    font-size: 14px;
   }
 }
 
 @media (max-width: 360px) {
   .container {
     padding: 12px 10px;
+    margin: 40px auto 40px auto;
   }
   
   .section-title {
@@ -1368,3 +1299,4 @@ textarea {
     min-height: 44px;
   }
 }
+

@@ -86,6 +86,33 @@ function validarDocumento(input) {
   }
 }
 
+// Función para limpiar el estado de validación del campo de confirmación
+// Se llama cuando el usuario escribe, pero NO valida en tiempo real
+function limpiarValidacionConfirmacionDocumento() {
+  const inputConfirmar = document.getElementById('documentoConfirmar');
+  if (inputConfirmar) {
+    inputConfirmar.setCustomValidity('');
+  }
+}
+
+// Función para validar confirmación de documento (solo al enviar)
+function validarConfirmacionDocumento() {
+  const documento = document.getElementById('documento').value.trim();
+  const documentoConfirmar = document.getElementById('documentoConfirmar').value.trim();
+  const inputConfirmar = document.getElementById('documentoConfirmar');
+  
+  // Limpiar cualquier validación previa antes de validar
+  inputConfirmar.setCustomValidity('');
+  
+  if (documentoConfirmar && documento !== documentoConfirmar) {
+    inputConfirmar.setCustomValidity('Los documentos no coinciden');
+    return false;
+  } else {
+    inputConfirmar.setCustomValidity('');
+    return true;
+  }
+}
+
 // Función global para actualizar correo completo
 function actualizarCorreoCompleto() {
   const correoInput = document.getElementById('correo');
@@ -307,6 +334,16 @@ async function enviarFormulario(event) {
     return;
   }
   
+  // Validar confirmación de documento
+  if (!validarConfirmacionDocumento()) {
+    const documentoConfirmarInput = document.getElementById('documentoConfirmar');
+    documentoConfirmarInput.reportValidity();
+    scrollToError(documentoConfirmarInput);
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar Formulario';
+    return;
+  }
+  
   // Validar satisfacción
   if (!satisfaccion) {
     const ratingContainer = document.getElementById('ratingContainer');
@@ -476,20 +513,23 @@ function regresarABienvenida() {
 
 // Función para mostrar modal de confirmación de cancelar
 function mostrarConfirmacionCancelar() {
-  const modal = document.getElementById('modalCancelar');
+  const modal = document.getElementById('modalConfirmacion');
+  document.getElementById('tituloConfirmacion').textContent = '¿Seguro que deseas cancelar?';
+  document.getElementById('mensajeConfirmacion').textContent = 'Se perderán todos los datos del formulario que has ingresado.';
+  
+  modal.style.display = 'flex';
   modal.classList.remove('hidden');
-}
-
-// Función para cerrar modal de cancelar
-function cerrarModalCancelar() {
-  const modal = document.getElementById('modalCancelar');
-  modal.classList.add('hidden');
-}
-
-// Función para confirmar cancelar y reiniciar página
-function confirmarCancelar() {
-  // Reiniciar la página completamente
-  window.location.reload();
+  
+  document.getElementById('btnConfirmarModal').onclick = function() {
+    modal.style.display = 'none';
+    modal.classList.add('hidden');
+    window.location.reload();
+  };
+  
+  document.getElementById('btnCancelarModal').onclick = function() {
+    modal.style.display = 'none';
+    modal.classList.add('hidden');
+  };
 }
 
 // Inicialización

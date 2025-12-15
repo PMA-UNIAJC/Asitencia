@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Formulario PVU</title>
+  <title>Formulario Asistencia PVU</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://hgppzklpukgslnrynvld.supabase.co/storage/v1/object/public/IMG/LOGO.png">
   <link rel="stylesheet" href="pvu-styles.css">
 </head>
 <body class="welcome-active">
@@ -26,8 +27,8 @@
   
   <div class="welcome-right">
     <div class="welcome-content">
-      <h1 class="welcome-title">Formulario de Asistencia a<br>Preparación para la Vida Universitaria</h1>
-      <p class="welcome-subtitle">Formulario PVU</p>
+      <h1 class="welcome-title">Preparación para la Vida Universitaria</h1>
+      <p class="welcome-subtitle">Formulario Asistencia PVU</p>
       <div class="welcome-description">
         <p>Este formulario tiene como objetivo recopilar información sobre tu experiencia de aprendizaje y nivel de satisfacción con las actividades académicas realizadas.</p>
         <p>Tu opinión es muy importante para nosotros y nos ayuda a mejorar continuamente nuestros procesos educativos.</p>
@@ -39,15 +40,9 @@
 
 <!-- Contenido del Formulario (oculto inicialmente) -->
 <div id="contenidoFormulario" class="hidden">
-  <div class="header-container">
-    <h1 class="header-title">
-      FORMULARIO PVU
-    </h1>
-  </div>
-
   <div class="container">
   <div id="pantallaFormulario">
-    <h2 class="section-title">Formulario de Encuesta</h2>
+    <h2 class="section-title">Preparación para la Vida Universitaria</h2>
     
     <div id="mensajeFormulario"></div>
     
@@ -64,15 +59,31 @@
           inputmode="numeric" 
           minlength="7" 
           maxlength="12"
-          oninput="this.value = this.value.replace(/[^0-9]/g, ''); validarDocumento(this)"
+          oninput="this.value = this.value.replace(/[^0-9]/g, ''); validarDocumento(this); limpiarValidacionConfirmacionDocumento()"
           onblur="validarDocumento(this)"
           autocomplete="off">
         <span class="error-message" id="errorDocumento"></span>
       </div>
 
-      <!-- NOMBRES COMPLETOS -->
+      <!-- CONFIRMAR DOCUMENTO -->
       <div class="form-group">
-        <label>Nombres completos <span class="required-asterisk">*</span></label>
+        <label>Confirma tu documento de identidad <span class="required-asterisk">*</span></label>
+        <input 
+          type="tel" 
+          id="documentoConfirmar" 
+          required 
+          pattern="[0-9]*" 
+          inputmode="numeric" 
+          minlength="7" 
+          maxlength="12"
+          oninput="this.value = this.value.replace(/[^0-9]/g, ''); limpiarValidacionConfirmacionDocumento()"
+          autocomplete="off">
+        <span class="error-message" id="errorDocumentoConfirmar"></span>
+      </div>
+
+      <!-- NOMBRES -->
+      <div class="form-group">
+        <label>Nombres <span class="required-asterisk">*</span></label>
         <input 
           type="text" 
           id="nombres" 
@@ -82,9 +93,9 @@
           autocomplete="off">
       </div>
 
-      <!-- APELLIDOS COMPLETOS -->
+      <!-- APELLIDOS -->
       <div class="form-group">
-        <label>Apellidos completos <span class="required-asterisk">*</span></label>
+        <label>Apellidos <span class="required-asterisk">*</span></label>
         <input 
           type="text" 
           id="apellidos" 
@@ -204,7 +215,7 @@
 
       <!-- BOTONES -->
       <button type="submit" class="btn" id="btnEnviar">Enviar Formulario</button>
-      <button type="button" class="btn btn-cancelar" id="btnCancelar" onclick="mostrarConfirmacionCancelar()">Cancelar</button>
+      <button type="button" class="btn btn-secondary" id="btnCancelar" onclick="mostrarConfirmacionCancelar()">Cancelar</button>
     </form>
   </div>
 </div>
@@ -222,14 +233,14 @@
   </div>
 </div>
 
-<!-- Modal de confirmación para cancelar -->
-<div id="modalCancelar" class="modal-overlay hidden">
-  <div class="modal-confirm">
-    <h2>¿Seguro que quieres cancelar?</h2>
-    <p>Se perderán todos los datos ingresados en el formulario</p>
+<!-- Modal de confirmación de cancelación -->
+<div id="modalConfirmacion" class="modal-overlay hidden">
+  <div class="modal-confirmacion">
+    <h2 id="tituloConfirmacion">¿Seguro que deseas cancelar?</h2>
+    <p id="mensajeConfirmacion">Se perderán todos los datos del formulario que has ingresado.</p>
     <div class="modal-buttons">
-      <button class="btn btn-confirm-si" onclick="confirmarCancelar()">Sí</button>
-      <button class="btn btn-confirm-no" onclick="cerrarModalCancelar()">No</button>
+      <button class="btn" id="btnConfirmarModal">Sí, estoy seguro</button>
+      <button class="btn btn-secondary" id="btnCancelarModal">No, volver</button>
     </div>
   </div>
 </div>
