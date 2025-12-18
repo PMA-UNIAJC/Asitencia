@@ -29,7 +29,7 @@
 
 .welcome-left {
   flex: 0 0 65%;
-  background: linear-gradient(135deg, #0a1628 0%, #1a2f5a 50%, #0a1628 100%);
+  background: #0a1628;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -152,7 +152,7 @@
 
 .welcome-right {
   flex: 0 0 35%;
-  background: linear-gradient(135deg, #e8f0f8 0%, #f5f8fc 100%);
+  background: #e8f0f8;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -176,7 +176,7 @@
   font-weight: 700;
   line-height: 1.3;
   margin-bottom: 20px;
-  font-family: 'Poppins', sans-serif;
+  font-family: inherit;
 }
 
 .welcome-title-main br {
@@ -201,23 +201,22 @@
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
   margin-top: 10px;
   letter-spacing: 0.3px;
-  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
+  font-family: inherit;
 }
 
 .welcome-btn-primary {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #1e3c72;
   color: white;
   border: none;
   box-shadow: 0 4px 12px rgba(30, 60, 114, 0.25);
 }
 
 .welcome-btn-primary:hover {
-  background: linear-gradient(135deg, #2a5298 0%, #3d6bb5 100%);
+  background: #2a5298;
   box-shadow: 0 6px 16px rgba(30, 60, 114, 0.35);
-  transform: translateY(-2px);
 }
 
 .welcome-btn-secondary {
@@ -232,7 +231,6 @@
   border-color: #2a5298;
   color: #2a5298;
   box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
-  transform: translateY(-1px);
 }
 
 /* Ocultar contenido del formulario inicialmente */
@@ -598,22 +596,21 @@
 }
 
 body {
-  font-family: 'Segoe UI', 'Arial', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  overflow-y: auto; /* Permitir scroll vertical siempre */
+  overflow-y: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #0a1628 0%, #1a2f5a 20%, #2a4d8f 50%, #1a2f5a 80%, #0a1628 100%);
+  background: linear-gradient(135deg, #0a1628 0%, #1a2f5a 50%, #0a1628 100%);
   display: flex;
   flex-direction: column;
   padding: 15px;
-  -webkit-overflow-scrolling: touch; /* Scroll suave en iOS */
-  transition: padding 0s; /* Sin transición en padding para evitar movimiento */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* Fondo fijo con múltiples capas de texturas */
+/* Fondo simplificado - solo 2 capas ligeras */
 body::before {
   content: '';
   position: fixed;
@@ -623,56 +620,11 @@ body::before {
   height: 100%;
   z-index: -1;
   background: 
-    /* Textura de puntos sutil */
-    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-    /* Líneas diagonales sutiles */
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 8px,
-      rgba(255, 255, 255, 0.02) 8px,
-      rgba(255, 255, 255, 0.02) 10px
-    ),
-    /* Patrón de ondas superiores izquierda - más suave y difuso */
-    radial-gradient(ellipse 1200px 1000px at 10% 10%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%),
-    /* Patrón de ondas superiores derecha - más suave y difuso */
-    radial-gradient(ellipse 1100px 900px at 90% 15%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%),
-    /* Patrón de ondas inferiores izquierda - más suave y difuso */
-    radial-gradient(ellipse 1000px 1100px at 15% 90%, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.015) 40%, transparent 70%),
-    /* Patrón de ondas inferiores derecha - más suave y difuso */
-    radial-gradient(ellipse 1200px 1000px at 85% 85%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%);
-  background-size: 
-    50px 50px,
-    60px 60px,
-    1500px 1300px,
-    1400px 1200px,
-    1300px 1400px,
-    1500px 1300px;
-  background-position: 
-    0 0,
-    0 0,
-    -400px -400px,
-    calc(100% + 200px) -300px,
-    -300px calc(100% + 300px),
-    calc(100% + 300px) calc(100% + 300px);
+    radial-gradient(circle 800px at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 60%),
+    radial-gradient(circle 700px at 80% 70%, rgba(255, 255, 255, 0.04) 0%, transparent 60%);
+  pointer-events: none;
 }
 
-/* Capa adicional con efecto de brillo animado sutil y más difuso */
-body::after {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background: 
-    radial-gradient(circle 1000px at 30% 20%, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 50%, transparent 80%),
-    radial-gradient(circle 900px at 70% 80%, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 80%),
-    radial-gradient(circle 800px at 50% 50%, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 50%, transparent 80%);
-  pointer-events: none;
-  opacity: 0.6;
-}
 
 /* Cuando la pantalla de bienvenida está visible, ajustar el body */
 body.welcome-active {
@@ -730,7 +682,6 @@ body.welcome-active {
   width: 100%;
   margin: 80px auto 0 auto;
   padding: 30px 25px;
-  animation: fadeIn 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -741,10 +692,6 @@ body.welcome-active {
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 
 /* ===================================
    TÍTULOS Y TEXTOS
@@ -758,7 +705,7 @@ body.welcome-active {
   border-bottom: 3px solid #1e3c72;
   letter-spacing: 0.3px;
   position: relative;
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  font-family: inherit;
 }
 
 .section-title::after {
@@ -768,7 +715,7 @@ body.welcome-active {
   left: 0;
   width: 60px;
   height: 3px;
-  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  background: #2a5298;
   border-radius: 2px;
 }
 
@@ -900,20 +847,9 @@ body.welcome-active {
   background: linear-gradient(to bottom, #e8f4fd 0%, #f0f8ff 100%);
   border-radius: 10px;
   border: 2px solid #1e3c72;
-  animation: slideDown 0.3s ease;
   box-shadow: 0 4px 12px rgba(30, 60, 114, 0.15);
 }
 
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 .horario-titulo {
   color: #1e3c72;
@@ -974,7 +910,6 @@ body.welcome-active {
 .enlace-horario-virtual:hover {
   background: rgba(30, 60, 114, 0.1);
   color: #2a5298;
-  transform: translateY(-2px);
   box-shadow: 0 2px 8px rgba(30, 60, 114, 0.2);
 }
 
@@ -1037,7 +972,6 @@ textarea:focus {
   border-color: #1e3c72;
   box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.12), 0 2px 6px rgba(30, 60, 114, 0.1);
   background: white;
-  transform: translateY(-1px);
 }
 
 textarea {
@@ -1085,7 +1019,7 @@ textarea {
 
 
 .rating input[type="radio"]:checked + label {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #1e3c72;
   color: white;
   border-color: #1e3c72;
   box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
@@ -1104,7 +1038,7 @@ textarea {
 .btn {
   width: 100%;
   padding: 14px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #1e3c72;
   color: white;
   border: none;
   border-radius: 6px;
@@ -1118,9 +1052,8 @@ textarea {
 }
 
 .btn:hover {
-  background: linear-gradient(135deg, #2a5298 0%, #3d6bb5 100%);
+  background: #2a5298;
   box-shadow: 0 6px 16px rgba(30, 60, 114, 0.35);
-  transform: translateY(-2px);
 }
 
 .btn:active {
@@ -1154,7 +1087,6 @@ textarea {
   border-color: #2a5298;
   color: #2a5298;
   box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
-  transform: translateY(-1px);
 }
 
 .btn-cerrar-admin {
@@ -1177,7 +1109,6 @@ textarea {
   margin-bottom: 20px;
   text-align: center;
   font-size: 14px;
-  animation: slideDown 0.3s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -1356,7 +1287,7 @@ textarea {
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #1e3c72;
   color: white;
   padding: 20px;
   border-radius: 10px;
@@ -1496,7 +1427,6 @@ textarea {
   align-items: center;
   justify-content: center;
   z-index: 9999;
-  animation: fadeIn 0.3s ease;
 }
 
 .modal-overlay:not(.hidden) {
@@ -1512,29 +1442,17 @@ textarea {
   max-width: 400px;
   width: 90%;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  animation: slideUp 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 .success-icon {
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #28a745 0%, #34ce57 100%);
+  background: #28a745;
   color: white;
   border-radius: 50%;
   margin: 0 auto 25px;
-  animation: scaleIn 0.5s ease;
   box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
   display: flex;
   align-items: center;
@@ -1546,17 +1464,6 @@ textarea {
   height: 50px;
 }
 
-@keyframes scaleIn {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
 
 .modal-success h2 {
   color: #1e3c72;
@@ -1587,7 +1494,6 @@ textarea {
   max-width: 450px;
   width: 90%;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  animation: slideUp 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -1627,7 +1533,6 @@ textarea {
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-  animation: slideUp 0.4s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
   overflow: hidden;
 }
@@ -1638,7 +1543,7 @@ textarea {
   align-items: center;
   padding: 15px 20px;
   border-bottom: 2px solid #e0e0e0;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #1e3c72;
   color: white;
 }
 
@@ -1647,7 +1552,7 @@ textarea {
   font-size: 24px;
   font-weight: 600;
   margin: 0;
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  font-family: inherit;
 }
 
 .modal-close-btn {
@@ -1701,7 +1606,6 @@ textarea {
   background: linear-gradient(to bottom, #e8f4fd 0%, #f0f8ff 100%);
   border-radius: 10px;
   border: 2px solid #1e3c72;
-  animation: slideDown 0.3s ease;
   box-shadow: 0 4px 12px rgba(30, 60, 114, 0.15);
 }
 
@@ -1883,7 +1787,7 @@ select option[value="Otro"] {
   width: auto;
   max-width: 140px;
   padding: 12px 20px;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  background: #1e3c72;
   color: white;
   border: none;
   border-radius: 6px;
@@ -1897,9 +1801,8 @@ select option[value="Otro"] {
 }
 
 .btn-flecha:hover {
-  background: linear-gradient(135deg, #2a5298 0%, #3d6bb5 100%);
+  background: #2a5298;
   box-shadow: 0 6px 16px rgba(30, 60, 114, 0.35);
-  transform: translateY(-2px);
 }
 
 .btn-flecha:active {
@@ -1932,7 +1835,7 @@ select option[value="Otro"] {
   font-weight: 600;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   letter-spacing: 0.5px;
-  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  font-family: inherit;
 }
 
 .logo-container {

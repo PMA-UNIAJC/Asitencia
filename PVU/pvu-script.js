@@ -1,16 +1,11 @@
-// Configuración de Supabase
 const SUPABASE_URL = `https://hgppzklpukgslnrynvld.supabase.co`;
 const SUPABASE_KEY = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhncHB6a2xwdWtnc2xucnludmxkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3OTIzNTcsImV4cCI6MjA4MDM2ODM1N30.gRgf8vllRhVXj9pPPoHj2fPDgXyjZ8SA9h_wLmBSZfs`;
 
-// Zona horaria de Colombia (Bogotá, UTC-5)
 const TIMEZONE_COLOMBIA = 'America/Bogota';
 
-// Función para obtener la fecha actual en zona horaria de Colombia (sin timezone)
-// Devuelve solo la fecha/hora local de Colombia para guardar directamente en la BD
 function obtenerFechaColombia() {
   const ahora = new Date();
   
-  // Obtener los componentes de la fecha en zona horaria de Colombia
   const formatter = new Intl.DateTimeFormat('en-CA', {
     timeZone: TIMEZONE_COLOMBIA,
     year: 'numeric',
@@ -30,14 +25,11 @@ function obtenerFechaColombia() {
   const minuto = partes.find(p => p.type === 'minute').value;
   const segundo = partes.find(p => p.type === 'second').value;
   
-  // Crear fecha sin timezone (solo fecha/hora local de Colombia)
-  // Formato: YYYY-MM-DDTHH:MM:SS (sin offset, se guarda directamente como está)
   const fechaLocal = `${anio}-${mes}-${dia}T${hora}:${minuto}:${segundo}`;
   
   return fechaLocal;
 }
 
-// Función para insertar datos en Supabase
 async function supabaseInsert(table, data) {
   try {
     const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
@@ -63,7 +55,6 @@ async function supabaseInsert(table, data) {
   }
 }
 
-// Función para limpiar espacios en todos los campos (espacios dobles, al inicio y al final)
 function limpiarEspacios(input) {
   let valor = input.value;
   // Eliminar espacios al inicio y al final
@@ -87,7 +78,6 @@ function validarDocumento(input) {
 }
 
 // Función para limpiar el estado de validación del campo de confirmación
-// Se llama cuando el usuario escribe, pero NO valida en tiempo real
 function limpiarValidacionConfirmacionDocumento() {
   const inputConfirmar = document.getElementById('documentoConfirmar');
   if (inputConfirmar) {
@@ -95,7 +85,7 @@ function limpiarValidacionConfirmacionDocumento() {
   }
 }
 
-// Función para validar confirmación de documento (solo al enviar)
+// Función para validar confirmación de documento
 function validarConfirmacionDocumento() {
   const documento = document.getElementById('documento').value.trim();
   const documentoConfirmar = document.getElementById('documentoConfirmar').value.trim();
