@@ -505,11 +505,21 @@
       </div>
       <p id="nombreAdmin" class="nombre-admin"></p>
       
-      <div class="admin-tabs">
-        <button class="admin-tab active" onclick="cambiarTab(event, 'descargas')">Descargar Datos</button>
-        <button class="admin-tab" onclick="cambiarTab(event, 'estadisticas')">Estadísticas</button>
-        <button class="admin-tab" onclick="cambiarTab(event, 'graficas')">Gráficas</button>
+      <!-- MENÚ PRINCIPAL: PMA, PVU, AAA -->
+      <div class="admin-tabs admin-tabs-principal">
+        <button class="admin-tab active" onclick="cambiarTabPrincipal(event, 'pma')">PMA</button>
+        <button class="admin-tab" onclick="cambiarTabPrincipal(event, 'pvu')">PVU</button>
+        <button class="admin-tab" onclick="cambiarTabPrincipal(event, 'aaa')">AAA</button>
       </div>
+      
+      <!-- CONTENIDO PMA -->
+      <div id="contenidoPMA">
+        <!-- SUBMENÚ PMA: Descargar Datos, Estadísticas, Gráficas -->
+        <div class="admin-tabs admin-tabs-secundario">
+          <button class="admin-tab active" onclick="cambiarTab(event, 'descargas')">Descargar Datos</button>
+          <button class="admin-tab" onclick="cambiarTab(event, 'estadisticas')">Estadísticas</button>
+          <button class="admin-tab" onclick="cambiarTab(event, 'graficas')">Gráficas</button>
+        </div>
 
       <div id="tabEstadisticas" class="hidden">
         <div class="stats-grid" id="statsGrid"></div>
@@ -611,6 +621,31 @@
           <button class="btn btn-descargar-grupo" onclick="descargarPorGrupo()" id="btnDescargarGrupo" disabled>Descargar Registros por Grupo</button>
         </div>
       </div>
+
+      </div>
+      <!-- FIN CONTENIDO PMA -->
+      
+      <!-- CONTENIDO PVU -->
+      <div id="contenidoPVU" class="hidden">
+        <div class="chart-container">
+          <h3 class="chart-title">Descargar Reportes PVU</h3>
+          <p class="texto-descargas">Descargue los registros de asistencia del programa Preparación para la Vida Universitaria.</p>
+          <button class="btn" onclick="descargarPVU()" id="btnDescargarPVU">Descargar</button>
+        </div>
+      </div>
+      <!-- FIN CONTENIDO PVU -->
+      
+      <!-- CONTENIDO AAA -->
+      <div id="contenidoAAA" class="hidden">
+        <div class="chart-container">
+          <h3 class="chart-title">Descargar Reportes AAA</h3>
+          <p class="texto-descargas">Descargue los registros del programa Activación y Acompañamiento Académico.</p>
+          <button class="btn" onclick="descargarAAAIndividual()" id="btnDescargarAAAIndividual">Individual</button>
+          <button class="btn btn-secondary" onclick="descargarAAAGrupal()" id="btnDescargarAAAGrupal">Grupal</button>
+          <button class="btn btn-secondary" onclick="descargarAAATodo()" id="btnDescargarAAATodo">Todos los Registros</button>
+        </div>
+      </div>
+      <!-- FIN CONTENIDO AAA -->
 
       <button type="button" class="btn btn-secondary btn-cerrar-admin" onclick="cerrarSesionAdmin()">Cerrar Sesión</button>
     </div>
@@ -773,6 +808,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="script.js"></script>
+  <script src="admin.js"></script>
 </body>
 
 </html>

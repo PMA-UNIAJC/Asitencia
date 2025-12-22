@@ -524,3 +524,27 @@ function mostrarConfirmacionCancelar() {
 
 // Inicialización
 console.log('Formulario PVU iniciado');
+
+// ===================================
+// REINICIO AUTOMÁTICO POR INACTIVIDAD
+// ===================================
+// Reinicia la página si el usuario estuvo fuera más de X minutos
+
+let tiempoSalida = null;
+const MINUTOS_PARA_REINICIAR = 3;
+
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    // Usuario salió de la página (minimizó, cambió de pestaña, cerró navegador)
+    tiempoSalida = Date.now();
+  } else {
+    // Usuario volvió a la página
+    if (tiempoSalida) {
+      const minutosAusente = (Date.now() - tiempoSalida) / 1000 / 60;
+      if (minutosAusente >= MINUTOS_PARA_REINICIAR) {
+        location.reload();
+      }
+      tiempoSalida = null;
+    }
+  }
+});

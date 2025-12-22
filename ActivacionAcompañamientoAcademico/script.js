@@ -229,12 +229,18 @@ function validarDocumento(input) {
   }
 }
 
-// Función para validar contacto (10 números exactos)
+// Función para validar contacto (10 números exactos y debe empezar por 3)
 function validarContacto(input) {
   const contacto = input.value;
   
-  if (contacto.length > 0 && contacto.length !== 10) {
-    input.setCustomValidity('Por favor escriba correctamente el número de contacto (debe tener 10 dígitos)');
+  if (contacto.length > 0) {
+    if (contacto.length !== 10) {
+      input.setCustomValidity('Número de contacto no válido');
+    } else if (!contacto.startsWith('3')) {
+      input.setCustomValidity('Número de contacto no válido');
+    } else {
+      input.setCustomValidity('');
+    }
   } else {
     input.setCustomValidity('');
   }
@@ -1441,4 +1447,28 @@ function mostrarConfirmacionCancelar() {
 
 // Inicialización
 console.log('Formulario Acompañamiento Académico iniciado');
+
+// ===================================
+// REINICIO AUTOMÁTICO POR INACTIVIDAD
+// ===================================
+// Reinicia la página si el usuario estuvo fuera más de X minutos
+
+let tiempoSalida = null;
+const MINUTOS_PARA_REINICIAR = 3;
+
+document.addEventListener('visibilitychange', function() {
+  if (document.hidden) {
+    // Usuario salió de la página (minimizó, cambió de pestaña, cerró navegador)
+    tiempoSalida = Date.now();
+  } else {
+    // Usuario volvió a la página
+    if (tiempoSalida) {
+      const minutosAusente = (Date.now() - tiempoSalida) / 1000 / 60;
+      if (minutosAusente >= MINUTOS_PARA_REINICIAR) {
+        location.reload();
+      }
+      tiempoSalida = null;
+    }
+  }
+});
 

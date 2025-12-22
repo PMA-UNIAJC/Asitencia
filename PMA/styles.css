@@ -320,7 +320,10 @@
   
   .modal-horarios {
     max-width: 95%;
-    max-height: 85vh;
+    width: 95%;
+    height: 70vh;
+    min-height: 400px;
+    max-height: 70vh;
   }
   
   .modal-horarios-header {
@@ -328,7 +331,7 @@
   }
   
   .modal-horarios-header h2 {
-    font-size: 10px;
+    font-size: 6px;
   }
   
   .modal-horarios-content {
@@ -394,7 +397,10 @@
   
   .modal-horarios {
     max-width: 98%;
-    max-height: 90vh;
+    width: 98%;
+    height: 75vh;
+    min-height: 450px;
+    max-height: 75vh;
   }
   
   .modal-horarios-header {
@@ -402,7 +408,7 @@
   }
   
   .modal-horarios-header h2 {
-    font-size: 8px;
+    font-size: 5px;
   }
   
   .modal-horarios-content {
@@ -529,7 +535,10 @@
   
   .modal-horarios {
     max-width: 98%;
-    max-height: 95vh;
+    width: 98%;
+    height: 80vh;
+    min-height: 500px;
+    max-height: 80vh;
     border-radius: 12px;
   }
   
@@ -538,7 +547,7 @@
   }
   
   .modal-horarios-header h2 {
-    font-size: 7px;
+    font-size: 4px;
   }
   
   .modal-horarios-content {
@@ -839,6 +848,21 @@ body.welcome-active {
   flex: 1;
   min-width: 150px;
   margin: 0;
+  transition: all 0.3s ease;
+}
+
+.btn-sede.activo {
+  background: #1e3c72;
+  color: white;
+  border-color: #1e3c72;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-sede.activo:hover {
+  background: #2a5298;
+  border-color: #2a5298;
+  transform: translateY(-2px);
 }
 
 .horario-info {
@@ -1274,6 +1298,17 @@ textarea {
   border-radius: 4px 4px 0 0;
 }
 
+/* Menú principal (PMA, PVU, AAA) */
+.admin-tabs-principal {
+  margin-bottom: 25px;
+}
+
+/* Submenú (Descargar Datos, Estadísticas, Gráficas) */
+.admin-tabs-secundario {
+  margin-top: 0;
+  margin-bottom: 25px;
+}
+
 
 
 /* ===================================
@@ -1457,11 +1492,50 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: successIconBounce 0.6s ease-out, successIconPulse 2s ease-in-out 0.6s infinite;
+  transform-origin: center;
 }
 
 .success-icon svg {
   width: 50px;
   height: 50px;
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: checkmarkDraw 0.5s ease-out 0.3s forwards;
+}
+
+@keyframes successIconBounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes successIconPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+  }
+}
+
+@keyframes checkmarkDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 
@@ -1529,7 +1603,9 @@ textarea {
   border-radius: 16px;
   max-width: 800px;
   width: 90%;
-  max-height: 90vh;
+  height: 75vh;
+  min-height: 500px;
+  max-height: 75vh;
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
@@ -1555,6 +1631,18 @@ textarea {
   font-family: inherit;
 }
 
+@media (max-width: 768px) {
+  .modal-horarios-header h2 {
+    font-size: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-horarios-header h2 {
+    font-size: 4px;
+  }
+}
+
 .modal-close-btn {
   background: rgba(255, 255, 255, 0.2);
   border: none;
@@ -1578,7 +1666,9 @@ textarea {
 .modal-horarios-content {
   padding: 20px;
   overflow-y: auto;
+  overflow-x: hidden;
   flex: 1;
+  min-height: 0;
 }
 
 /* Scrollbar personalizado para el modal de horarios */
@@ -2262,62 +2352,6 @@ input[type="text"][id="adminContrasena"] {
     min-width: 0;
   }
 
-  /* Reducir TODAS las letras del Panel de Administración en tablets */
-  #pantallaAdmin,
-  #pantallaAdmin * {
-    font-size: 12px !important;
-  }
-
-  #pantallaAdmin .section-title {
-    font-size: 16px !important;
-  }
-
-  #pantallaAdmin .admin-tab {
-    font-size: 11px !important;
-    padding: 8px 12px !important;
-  }
-
-  #pantallaAdmin .nombre-admin {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin .chart-title {
-    font-size: 12px !important;
-  }
-
-  #pantallaAdmin .texto-descargas {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin label {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin .list-item {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin .list-item strong,
-  #pantallaAdmin .list-item span {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin .stat-card h3 {
-    font-size: 18px !important;
-  }
-
-  #pantallaAdmin .stat-card p {
-    font-size: 9px !important;
-  }
-
-  #pantallaAdmin .btn {
-    font-size: 12px !important;
-  }
-
-  #pantallaAdmin .estadisticas-menu-wrapper .btn-sede {
-    font-size: 11px !important;
-  }
-
   #pantallaAdmin .chart-container p {
     font-size: 11px !important;
   }
@@ -2346,10 +2380,6 @@ input[type="text"][id="adminContrasena"] {
 
   #pantallaAdmin .btn-cerrar-admin {
     font-size: 12px !important;
-  }
-
-  #pantallaAdmin .chart-container p {
-    font-size: 11px !important;
   }
 
   /* Forzar que las tarjetas de estadísticas estén una debajo de otra */
@@ -2652,73 +2682,6 @@ input[type="text"][id="adminContrasena"] {
     font-size: 11px;
     flex: 1 1 auto;
     min-width: 0;
-  }
-
-  /* Reducir TODAS las letras del Panel de Administración en móviles */
-  #pantallaAdmin,
-  #pantallaAdmin * {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin .section-title {
-    font-size: 14px !important;
-  }
-
-  #pantallaAdmin .admin-tab {
-    font-size: 10px !important;
-    padding: 6px 10px !important;
-  }
-
-  #pantallaAdmin .nombre-admin {
-    font-size: 10px !important;
-  }
-
-  #pantallaAdmin .chart-title {
-    font-size: 11px !important;
-  }
-
-  #pantallaAdmin .texto-descargas {
-    font-size: 10px !important;
-  }
-
-  #pantallaAdmin label {
-    font-size: 10px !important;
-  }
-
-  #pantallaAdmin .list-item {
-    font-size: 10px !important;
-    padding: 8px 10px !important;
-  }
-
-  #pantallaAdmin .list-item strong,
-  #pantallaAdmin .list-item span {
-    font-size: 10px !important;
-  }
-
-  #pantallaAdmin .stat-card h3 {
-    font-size: 16px !important;
-  }
-
-  #pantallaAdmin .stat-card p {
-    font-size: 8px !important;
-  }
-
-  #pantallaAdmin .btn {
-    font-size: 11px !important;
-    padding: 10px !important;
-  }
-
-  #pantallaAdmin .estadisticas-menu-wrapper .btn-sede {
-    font-size: 10px !important;
-    padding: 8px 5px !important;
-  }
-
-  #pantallaAdmin input[type="text"],
-  #pantallaAdmin input[type="date"],
-  #pantallaAdmin input[type="password"],
-  #pantallaAdmin select,
-  #pantallaAdmin textarea {
-    font-size: 14px !important;
   }
 
   #pantallaAdmin .chart-container p {
