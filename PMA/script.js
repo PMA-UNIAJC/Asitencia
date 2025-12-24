@@ -53,11 +53,6 @@ const elementosDOM = {
   btnConfirmarRegistro: null,
   btnContinuar: null,
   btnEnviar: null,
-  // Modales
-  modalHorarios: null,
-  horarioNorteModal: null,
-  horarioSurModal: null,
-  horarioVirtualModal: null,
   // Estadísticas
   statsGrid: null,
   detallesStats: null,
@@ -125,12 +120,6 @@ function inicializarCacheDOM() {
   elementosDOM.btnConfirmarRegistro = document.getElementById('btnConfirmarRegistro');
   elementosDOM.btnContinuar = document.getElementById('btnContinuar');
   elementosDOM.btnEnviar = document.getElementById('btnEnviar');
-  
-  // Modales
-  elementosDOM.modalHorarios = document.getElementById('modalHorarios');
-  elementosDOM.horarioNorteModal = document.getElementById('horarioNorteModal');
-  elementosDOM.horarioSurModal = document.getElementById('horarioSurModal');
-  elementosDOM.horarioVirtualModal = document.getElementById('horarioVirtualModal');
   
   // Estadísticas
   elementosDOM.statsGrid = document.getElementById('statsGrid');
@@ -629,101 +618,6 @@ async function mostrarRegistro() {
   }, 550);
 }
 
-
-
-function mostrarModalHorarios() {
-  if (elementosDOM.modalHorarios) {
-    elementosDOM.modalHorarios.classList.remove('hidden');
-    // Prevenir scroll del body cuando el modal está abierto
-    document.body.style.overflow = 'hidden';
-    // Iniciar siempre con "Sede Norte"
-    setTimeout(() => {
-      mostrarHorarioEnModal('norte');
-    }, 50);
-  }
-}
-
-function cerrarModalHorarios() {
-  if (elementosDOM.modalHorarios) {
-    elementosDOM.modalHorarios.classList.add('hidden');
-    // Restaurar scroll del body
-    document.body.style.overflow = '';
-    // Ocultar todos los horarios al cerrar usando caché DOM
-    if (elementosDOM.horarioNorteModal) {
-      elementosDOM.horarioNorteModal.classList.add('hidden');
-    }
-    if (elementosDOM.horarioSurModal) {
-      elementosDOM.horarioSurModal.classList.add('hidden');
-    }
-    if (elementosDOM.horarioVirtualModal) {
-      elementosDOM.horarioVirtualModal.classList.add('hidden');
-    }
-    // Remover clase activa de todos los botones al cerrar
-    document.querySelectorAll('.botones-sedes .btn-sede').forEach(btn => {
-      btn.classList.remove('activo');
-    });
-  }
-}
-
-function mostrarHorarioEnModal(sede) {
-  // Remover clase activa de todos los botones
-  document.querySelectorAll('.botones-sedes .btn-sede').forEach(btn => {
-    btn.classList.remove('activo');
-  });
-  
-  // Agregar clase activa al botón correspondiente según la sede
-  const botones = document.querySelectorAll('.botones-sedes .btn-sede');
-  botones.forEach(btn => {
-    const textoBoton = btn.textContent.trim();
-    if (sede === 'norte' && textoBoton.includes('Norte')) {
-      btn.classList.add('activo');
-    } else if (sede === 'sur' && textoBoton.includes('Sur')) {
-      btn.classList.add('activo');
-    } else if (sede === 'virtual' && textoBoton.includes('Virtual')) {
-      btn.classList.add('activo');
-    }
-  });
-  
-  // Ocultar todos los horarios primero usando caché DOM
-  if (elementosDOM.horarioNorteModal) {
-    elementosDOM.horarioNorteModal.classList.add('hidden');
-  }
-  if (elementosDOM.horarioSurModal) {
-    elementosDOM.horarioSurModal.classList.add('hidden');
-  }
-  if (elementosDOM.horarioVirtualModal) {
-    elementosDOM.horarioVirtualModal.classList.add('hidden');
-  }
-  
-  // Mostrar el horario seleccionado
-  if (sede === 'norte' && elementosDOM.horarioNorteModal) {
-    elementosDOM.horarioNorteModal.classList.remove('hidden');
-  } else if (sede === 'sur' && elementosDOM.horarioSurModal) {
-    elementosDOM.horarioSurModal.classList.remove('hidden');
-  } else if (sede === 'virtual' && elementosDOM.horarioVirtualModal) {
-    elementosDOM.horarioVirtualModal.classList.remove('hidden');
-  }
-}
-
-// Cerrar modal al hacer clic fuera de él
-document.addEventListener('DOMContentLoaded', function() {
-  // Usar caché DOM después de inicialización
-  if (elementosDOM.modalHorarios) {
-    elementosDOM.modalHorarios.addEventListener('click', function(e) {
-      if (e.target === elementosDOM.modalHorarios) {
-        cerrarModalHorarios();
-      }
-    });
-    
-    // Cerrar modal con tecla ESC
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && elementosDOM.modalHorarios && !elementosDOM.modalHorarios.classList.contains('hidden')) {
-        cerrarModalHorarios();
-      }
-    });
-  }
-});
-
 function volverInicio() {
   // Usar caché DOM
   const pantallaBienvenida = elementosDOM.pantallaBienvenida || document.getElementById('pantallaBienvenida');
@@ -742,11 +636,6 @@ function volverInicio() {
   if (btnContinuar) btnContinuar.classList.remove('hidden');
   if (btnConfirmarRegistro) btnConfirmarRegistro.classList.add('hidden');
   if (confirmacionDatos) confirmacionDatos.classList.add('hidden');
-  
-  // Cerrar modal de horarios si está abierto usando caché DOM
-  if (elementosDOM.modalHorarios && !elementosDOM.modalHorarios.classList.contains('hidden')) {
-    cerrarModalHorarios();
-  }
   
   // Ocultar contenido del formulario y mostrar bienvenida
   contenidoFormulario.style.opacity = '0';
